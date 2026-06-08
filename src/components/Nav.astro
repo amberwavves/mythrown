@@ -1,0 +1,31 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/commercial", label: "Commercial" },
+  { href: "/residential", label: "Residential" },
+  { href: "/services", label: "Services" },
+  { href: "/shop", label: "Visit the Shop" },
+  { href: "/favves", label: "Favves" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<header class="sticky top-0 z-30 bg-[color:var(--color-bg)]/90 backdrop-blur border-b border-black/10">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+    <a href="/" class="flex items-center">
+      <span class="font-black tracking-[0.3em] text-sm">THROWN</span>
+    </a>
+    <ul class="hidden md:flex gap-6 text-xs tracking-widest uppercase">
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class="hover:text-[color:var(--color-cherry)] transition-colors"
+          >{l.label}</a>
+        </li>
+      ))}
+    </ul>
+    <button class="md:hidden text-xs tracking-widest uppercase" aria-label="Open menu">Menu</button>
+  </nav>
+</header>

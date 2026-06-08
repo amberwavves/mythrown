@@ -1,0 +1,181 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Thrown Design & Wine | THROWN" description="A thoughtfully curated wine & gift boutique in the heart of the Wheeler District in OKC.">
+
+  <!-- HERO: background video, oversized headline matching site vibe -->
+  <section class="relative min-h-[88vh] md:min-h-screen w-full overflow-hidden bg-black flex items-end">
+    <video
+      class="absolute inset-0 w-full h-full object-cover"
+      src="/videos/shop-hero.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="/images/shop/trio-storefront.jpg"
+    ></video>
+
+    <!-- Subtle bottom-weighted tint for legibility -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30"></div>
+
+    <!-- Editorial side rails -->
+    <div class="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-10 items-center gap-3 text-white/80 [writing-mode:vertical-rl] rotate-180 text-[0.65rem] tracking-[0.45em] uppercase">
+      <span>Wheeler District</span>
+      <span class="w-12 h-px bg-white/60"></span>
+      <span>OKC</span>
+    </div>
+    <div class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-10 items-center gap-3 text-white/80 [writing-mode:vertical-rl] text-[0.65rem] tracking-[0.45em] uppercase">
+      <span>1712 Spoke St</span>
+    </div>
+
+    <!-- Headline content (bottom-anchored like homepage) -->
+    <div class="relative z-10 w-full px-6 pt-24 pb-16 md:pt-40 md:pb-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-xs tracking-[0.3em] uppercase text-white/90">Visit the Shop</div>
+
+        <h1 class="mt-4 font-black leading-[0.82] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+          <span class="block text-[18vw] md:text-[14vw]">THROWN</span>
+          <span class="block text-[8vw] md:text-[6vw] mt-1">DESIGN <span style="color:#e8a93a;">&amp;</span> WINE</span>
+        </h1>
+
+        <p class="mt-8 uppercase text-white font-semibold tracking-[0.15em] text-[clamp(0.7rem,1.6vw,1.25rem)] max-w-3xl">
+          A thoughtfully curated wine + gift boutique in the heart of the Wheller Distrct, OKC.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a
+            href="https://www.google.com/maps/place/Thrown+Design+and+Wine/@35.448369,-97.5342719,17z"
+            target="_blank"
+            rel="noopener"
+            class="px-6 py-3 bg-[color:var(--color-cherry)] text-white text-xs tracking-widest uppercase hover:bg-[color:var(--color-cherry-soft)] transition-colors"
+          >
+            Visit Us &nbsp;&rarr;
+          </a>
+          <a
+            href="mailto:shop@mythrown.com"
+            class="px-6 py-3 bg-white/10 backdrop-blur-sm text-white text-xs tracking-widest uppercase border border-white/40 hover:bg-white hover:text-black transition-colors"
+          >
+            shop@mythrown.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIO: images + paragraphs -->
+  <section class="px-6 pt-20 pb-24">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 md:gap-12">
+      <div>
+        <img
+          src="/images/shop/trio-storefront.jpg"
+          alt="Exterior of the THROWN storefront with striped awning"
+          class="w-full h-auto block aspect-square object-cover"
+          loading="lazy"
+        />
+        <p class="mt-6 text-base leading-relaxed">
+          When you&rsquo;re picking out a gift for someone you love, you want something both stylish
+          and unique. You and your giftee are individuals, and you both deserve home decor and
+          lifestyle accessories that match your unique personalities. That&rsquo;s why Thrown offers
+          special, limited-run items you won&rsquo;t find anywhere else.
+        </p>
+      </div>
+      <div>
+        <img
+          src="/images/shop/trio-office.png"
+          alt="Amber inside the THROWN office with mosaic LOVE letters"
+          class="w-full h-auto block aspect-square object-cover"
+          loading="lazy"
+        />
+        <p class="mt-6 text-base leading-relaxed">
+          Because our items are limited run, we don&rsquo;t keep an updated inventory on our website.
+          You&rsquo;ll have to come and visit us to see what&rsquo;s in stock. However, we can promise
+          we&rsquo;ve put lots of thought and care into our selection. Take a trip out to OKC&rsquo;s
+          Wheeler District today to see what special items we have in stock.
+        </p>
+      </div>
+      <div>
+        <img
+          src="/images/shop/trio-wine.png"
+          alt="Wine bottles with cowboy hat labels and brass horse bottle opener"
+          class="w-full h-auto block aspect-square object-cover"
+          loading="lazy"
+        />
+        <p class="mt-6 text-base leading-relaxed">
+          Our wine selection stems from Amber&rsquo;s passion for both wine itself and the service
+          industry, where she worked for thirteen years. She loved learning about wine along the
+          way, so wine felt like a natural addition to the boutique space. We&rsquo;ve thoughtfully
+          curated our favorite wines by the bottle, and we&rsquo;d love to help you find the perfect
+          pour.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto mt-14 text-center">
+      <a
+        href="https://www.google.com/maps/dir//Thrown+Design+and+Wine,+1712+Spoke+St,+Oklahoma+City,+OK+73108"
+        target="_blank"
+        rel="noopener"
+        class="inline-block bg-black text-white px-8 py-3 text-sm tracking-[0.25em] uppercase hover:bg-[color:var(--color-cherry)] transition"
+      >Visit us! 1712 Spoke Street</a>
+    </div>
+  </section>
+
+  <!-- ADDRESS / HOURS / CONTACT -->
+  <section class="px-6 pb-24 border-t border-black/10 pt-16">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">
+      <div>
+        <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Address</div>
+        <p class="mt-3 text-lg leading-relaxed">
+          1712 Spoke Street<br />
+          Wheeler District<br />
+          Oklahoma City, OK<br />
+          <a href="https://maps.google.com/?q=Thrown+Design+and+Wine+Oklahoma+City" class="underline underline-offset-4 hover:text-[color:var(--color-cherry)]">Get directions</a>
+        </p>
+      </div>
+      <div>
+        <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Hours</div>
+        <ul class="mt-3 text-lg leading-relaxed space-y-1">
+          <li>Wed &ndash; Sat &middot; 12 &ndash; 5</li>
+          <li>Sun &ndash; Tue &middot; Closed</li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Contact</div>
+        <p class="mt-3 text-lg leading-relaxed">
+          <a href="mailto:shop@mythrown.com" class="underline underline-offset-4 hover:text-[color:var(--color-cherry)]">shop@mythrown.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP INTO MY OFFICE: embedded video + copy -->
+  <section class="px-6 py-24 border-t border-black/10">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Step into my office</div>
+        <h2 class="mt-3 text-3xl md:text-5xl font-black tracking-tight leading-tight">A space to meet, sip, and shop.</h2>
+        <p class="mt-6 text-lg leading-relaxed">
+          Thrown is my design office &amp; a space to meet with clients. It also boasts a
+          collection of worldly wines, and unique gifts curated by me, Amber. You don&rsquo;t have
+          to have a design appointment to stop by. We are open Wednesday &ndash; Saturday 12 &ndash; 5pm.
+          Come say hi!
+        </p>
+      </div>
+      <div class="w-full aspect-video bg-black overflow-hidden">
+        <video
+          class="w-full h-full object-cover"
+          src="/videos/shop-office.mp4"
+          controls
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/images/shop/trio-office.png"
+        ></video>
+      </div>
+    </div>
+  </section>
+
+</Base>

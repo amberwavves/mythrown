@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import StatueBand from "../components/StatueBand.astro";
+import { getGallery } from "../lib/gallery";
+
+const images = getGallery("residential").visible;
+---
+
+<Base title="Residential Portfolio | THROWN">
+  <StatueBand />
+  <section class="px-6 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Portfolio</div>
+      <h1 class="mt-3 text-5xl md:text-7xl font-black tracking-tight">Residential</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed">
+        Homes designed around how people actually live — collected and layered.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 pb-32">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {images.map((src) => (
+        <a href={src} target="_blank" rel="noopener" class="group block aspect-square overflow-hidden bg-neutral-100">
+          <img
+            src={src}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+          />
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

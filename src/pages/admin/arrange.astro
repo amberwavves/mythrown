@@ -1,0 +1,218 @@
+---
+import Base from "../../layouts/Base.astro";
+import { CATEGORIES } from "../../lib/gallery";
+---
+
+<Base title="Arrange — THROWN admin">
+  <section class="px-6 pt-10 pb-32">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Admin · dev only</div>
+      <h1 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">Arrange photos</h1>
+      <p class="mt-4 text-sm text-[color:var(--color-muted)] max-w-2xl">
+        Drag thumbnails to reorder. Click a thumbnail to toggle hide / show.
+        Click <strong>Save</strong> to write <code>public/images/&lt;category&gt;/order.json</code>.
+        New files dropped into the folder will appear at the end automatically.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-2 items-center" id="tabs">
+        {CATEGORIES.map((c) => (
+          <button
+            data-cat={c}
+            class="tab px-4 py-2 text-xs tracking-widest uppercase border border-black/20 hover:bg-black hover:text-white transition-colors"
+          >{c}</button>
+        ))}
+        <div class="flex-1"></div>
+        <span id="status" class="text-xs tracking-widest uppercase text-[color:var(--color-muted)]"></span>
+        <button id="reset" class="px-4 py-2 text-xs tracking-widest uppercase border border-black/20 hover:bg-neutral-200 transition-colors">Reset</button>
+        <button id="save" class="px-4 py-2 text-xs tracking-widest uppercase bg-black text-white hover:bg-neutral-800 transition-colors">Save</button>
+      </div>
+
+      <h2 class="mt-10 text-xs tracking-widest uppercase text-[color:var(--color-muted)]">Visible · drag to reorder · click to hide</h2>
+      <div id="visible" class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"></div>
+
+      <h2 class="mt-10 text-xs tracking-widest uppercase text-[color:var(--color-muted)]">Hidden · click to restore</h2>
+      <div id="hidden" class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 opacity-60"></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tile {
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    border: 2px solid transparent;
+    background: #f4f4f4;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+  .tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .tile.broken { background: repeating-linear-gradient(45deg, #eee, #eee 6px, #ddd 6px, #ddd 12px); }
+  .tile.broken .name { background: rgba(180,0,0,0.85); }
+  .tile:hover { border-color: rgba(0,0,0,0.4); }
+  .tile.drag-over { border-color: var(--color-cherry, #b8002e); }
+  .tile.dragging { opacity: 0.4; }
+  .tile .badge {
+    position: absolute; top: 4px; left: 4px;
+    background: rgba(0,0,0,0.7); color: white;
+    font-size: 10px; padding: 2px 6px; letter-spacing: 0.1em;
+  }
+  .tile .name {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.6); color: white;
+    font-size: 10px; padding: 3px 6px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tab.active { background: black; color: white; }
+</style>
+
+<script>
+  let category = "commercial";
+  let visible = [];
+  let hidden = [];
+  let dirty = false;
+
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  function setStatus(msg) {
+    const s = $("#status");
+    if (s) s.textContent = msg;
+  }
+
+  function markDirty() {
+    dirty = true;
+    setStatus("unsaved changes");
+  }
+
+  async function load(cat) {
+    category = cat;
+    const res = await fetch(`/api/arrange?category=${cat}`);
+    const data = await res.json();
+    visible = data.visible || [];
+    hidden = data.hidden || [];
+    dirty = false;
+    setStatus(`${visible.length} visible · ${hidden.length} hidden`);
+    render();
+    $$(".tab").forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+  }
+
+  function tile(file, idx, isHidden) {
+    const el = document.createElement("div");
+    el.className = "tile";
+    el.draggable = !isHidden;
+    el.dataset.file = file;
+    const base = file.replace(/\.[^.]+$/, "");
+    const thumb = `/images/${category}/_thumbs/${base}.webp`;
+    const full = `/images/${category}/${file}`;
+    el.innerHTML = `
+      <img src="${thumb}" alt="" loading="lazy" decoding="async"
+           onerror="if(this.dataset.fallback!=='1'){this.dataset.fallback='1';this.src='${full}';}else{this.style.display='none';this.parentElement.classList.add('broken');}" />
+      ${isHidden ? "" : `<span class="badge">${idx + 1}</span>`}
+      <span class="name">${file}</span>
+    `;
+    el.addEventListener("click", (e) => {
+      if (el.classList.contains("dragging")) return;
+      toggleHide(file);
+      e.preventDefault();
+    });
+    if (!isHidden) {
+      el.addEventListener("dragstart", (e) => {
+        el.classList.add("dragging");
+        e.dataTransfer && e.dataTransfer.setData("text/plain", file);
+        if (e.dataTransfer) e.dataTransfer.effectAllowed = "move";
+      });
+      el.addEventListener("dragend", () => {
+        el.classList.remove("dragging");
+        $$(".tile").forEach((t) => t.classList.remove("drag-over"));
+      });
+      el.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+        el.classList.add("drag-over");
+      });
+      el.addEventListener("dragleave", () => el.classList.remove("drag-over"));
+      el.addEventListener("drop", (e) => {
+        e.preventDefault();
+        el.classList.remove("drag-over");
+        const src = e.dataTransfer && e.dataTransfer.getData("text/plain");
+        if (!src || src === file) return;
+        const from = visible.indexOf(src);
+        const to = visible.indexOf(file);
+        if (from < 0 || to < 0) return;
+        visible.splice(from, 1);
+        visible.splice(to, 0, src);
+        markDirty();
+        render();
+      });
+    }
+    return el;
+  }
+
+  function toggleHide(file) {
+    const vi = visible.indexOf(file);
+    if (vi >= 0) {
+      visible.splice(vi, 1);
+      hidden.push(file);
+    } else {
+      const hi = hidden.indexOf(file);
+      if (hi >= 0) {
+        hidden.splice(hi, 1);
+        visible.push(file);
+      }
+    }
+    markDirty();
+    render();
+  }
+
+  function render() {
+    const v = $("#visible");
+    const h = $("#hidden");
+    if (!v || !h) return;
+    v.innerHTML = "";
+    h.innerHTML = "";
+    visible.forEach((f, i) => v.appendChild(tile(f, i, false)));
+    hidden.forEach((f, i) => h.appendChild(tile(f, i, true)));
+  }
+
+  async function save() {
+    setStatus("saving…");
+    const res = await fetch("/api/arrange", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ category, order: visible.concat(hidden), hidden }),
+    });
+    if (res.ok) {
+      dirty = false;
+      setStatus(`saved · ${visible.length} visible · ${hidden.length} hidden`);
+    } else {
+      const err = await res.text();
+      setStatus("save failed: " + err);
+    }
+  }
+
+  function init() {
+    $$(".tab").forEach((b) => b.addEventListener("click", () => {
+      const next = b.dataset.cat;
+      if (dirty && !confirm("Discard unsaved changes?")) return;
+      load(next);
+    }));
+    const saveBtn = $("#save");
+    if (saveBtn) saveBtn.addEventListener("click", save);
+    const resetBtn = $("#reset");
+    if (resetBtn) resetBtn.addEventListener("click", () => {
+      if (dirty && !confirm("Discard unsaved changes?")) return;
+      load(category);
+    });
+    window.addEventListener("beforeunload", (e) => {
+      if (dirty) { e.preventDefault(); e.returnValue = ""; }
+    });
+    load("commercial");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>

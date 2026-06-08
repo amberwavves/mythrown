@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import StatueBand from "../components/StatueBand.astro";
+---
+
+<Base title="Contact | THROWN">
+  <StatueBand />
+  <section class="px-6 pt-16 pb-32">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Contact</div>
+      <h1 class="mt-3 text-5xl md:text-7xl font-black tracking-tight">Talk to me.</h1>
+      <p class="mt-6 text-lg leading-relaxed">
+        Tell us about your project. We respond to all inquiries within two business days.
+      </p>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        class="mt-12 grid gap-6"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+
+        <label class="grid gap-2">
+          <span class="text-xs tracking-widest uppercase">Name</span>
+          <input name="name" required class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs tracking-widest uppercase">Email</span>
+          <input name="email" type="email" required class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs tracking-widest uppercase">Project Type</span>
+          <select name="project_type" class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black">
+            <option>Commercial</option>
+            <option>Residential</option>
+            <option>Consultation</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs tracking-widest uppercase">About the Project</span>
+          <textarea name="message" rows="5" required class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black"></textarea>
+        </label>
+
+        <button type="submit" class="justify-self-start px-6 py-3 bg-[color:var(--color-cherry)] text-white text-xs tracking-widest uppercase hover:bg-[color:var(--color-cherry-soft)] transition-colors">
+          Send Inquiry
+        </button>
+      </form>
+    </div>
+  </section>
+</Base>

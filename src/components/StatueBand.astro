@@ -1,0 +1,19 @@
+---
+// A subtle horizontal band of the statue art shown beneath the nav on inner pages.
+// On the homepage we use a more prominent variant via the `prominent` prop.
+const { prominent = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    "relative w-full overflow-hidden border-b border-black/10",
+    prominent ? "h-[42vh] md:h-[60vh]" : "h-32 md:h-44",
+  ]}
+  aria-hidden="true"
+>
+  <img
+    src="/images/statue.png"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover object-center"
+  />
+</div>
