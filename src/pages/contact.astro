@@ -9,7 +9,7 @@ import StatueBand from "../components/StatueBand.astro";
     <div class="max-w-2xl mx-auto">
       <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Contact</div>
       <h1 class="mt-3 text-5xl md:text-7xl font-brand-script tracking-[0.01em]">Talk to me.</h1>
-      <p class="mt-5 text-base md:text-lg leading-relaxed">
+      <p class="mt-5 text-base md:text-lg leading-relaxed font-geliat">
         Thank you for considering THROWN for your upcoming project. Please complete this inquiry so we can thoughtfully scope your design needs.
       </p>
 
@@ -30,23 +30,23 @@ import StatueBand from "../components/StatueBand.astro";
         </p>
 
         <label class="grid gap-2">
-          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Name</span>
+          <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">Name</span>
           <input name="name" required class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
         </label>
 
         <label class="grid gap-2">
-          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Email</span>
+          <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">Email</span>
           <input name="email" type="email" required class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
         </label>
 
         <label class="grid gap-2">
-          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Project Type</span>
+          <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">Project Type</span>
           <div class="relative" data-custom-select data-required="true">
             <input type="hidden" name="project_type" value="" data-select-input />
             <button
               type="button"
               data-select-trigger
-              class="w-full text-left text-sm md:text-base leading-[1.25] min-h-[2.4rem] border-b border-black/30 bg-transparent py-1.5 outline-none focus:border-black"
+              class="w-full text-left text-sm md:text-base leading-[1.25] min-h-[2.4rem] border-b border-black/30 bg-transparent py-1.5 outline-none focus:border-black font-geliat"
               aria-haspopup="listbox"
               aria-expanded="false"
             >
@@ -60,10 +60,10 @@ import StatueBand from "../components/StatueBand.astro";
               role="listbox"
               aria-label="Project type options"
             >
-              <button type="button" data-value="Commercial" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Commercial</button>
-              <button type="button" data-value="Residential" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Residential</button>
-              <button type="button" data-value="Hospitality" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Hospitality</button>
-              <button type="button" data-value="Other" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Other</button>
+              <button type="button" data-value="Commercial" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">Commercial</button>
+              <button type="button" data-value="Residential" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">Residential</button>
+              <button type="button" data-value="Hospitality" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">Hospitality</button>
+              <button type="button" data-value="Other" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">Other</button>
             </div>
 
             <p data-select-error class="hidden mt-2 text-xs uppercase tracking-[0.08em] text-[color:var(--color-cherry)]">
@@ -73,13 +73,13 @@ import StatueBand from "../components/StatueBand.astro";
         </label>
 
         <label class="grid gap-2">
-          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Design + Furnishings Investment</span>
+          <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">Design + Furnishings Investment</span>
           <div class="relative" data-custom-select data-required="true">
             <input type="hidden" name="project_investment" value="" data-select-input />
             <button
               type="button"
               data-select-trigger
-              class="w-full text-left text-sm md:text-base leading-[1.25] min-h-[2.4rem] border-b border-black/30 bg-transparent py-1.5 outline-none focus:border-black"
+              class="w-full text-left text-sm md:text-base leading-[1.25] min-h-[2.4rem] border-b border-black/30 bg-transparent py-1.5 outline-none focus:border-black font-geliat"
               aria-haspopup="listbox"
               aria-expanded="false"
             >
@@ -93,11 +93,11 @@ import StatueBand from "../components/StatueBand.astro";
               role="listbox"
               aria-label="Project investment options"
             >
-              <button type="button" data-value="Less than $50,000" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Less than $50,000</button>
-              <button type="button" data-value="$50,000-$150,000" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">$50,000-$150,000</button>
-              <button type="button" data-value="$150,000-$250,000" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">$150,000-$250,000</button>
-              <button type="button" data-value="$250,000+" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">$250,000+</button>
-              <button type="button" data-value="Not sure yet" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Not sure yet</button>
+              <button type="button" data-value="Less than $50,000" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">Less than $50,000</button>
+              <button type="button" data-value="$50,000-$150,000" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">$50,000-$150,000</button>
+              <button type="button" data-value="$150,000-$250,000" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">$150,000-$250,000</button>
+              <button type="button" data-value="$250,000+" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">$250,000+</button>
+              <button type="button" data-value="Not sure yet" class="block w-full text-left px-3 py-2 text-sm md:text-base font-geliat hover:bg-black/5">Not sure yet</button>
             </div>
 
             <p data-select-error class="hidden mt-2 text-xs uppercase tracking-[0.08em] text-[color:var(--color-cherry)]">
@@ -108,18 +108,18 @@ import StatueBand from "../components/StatueBand.astro";
 
         <div class="grid gap-5 md:grid-cols-2 md:gap-6">
           <label class="grid gap-2">
-            <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Timeline (Optional)</span>
+            <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">Timeline (Optional)</span>
             <input name="timeline" class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
           </label>
 
           <label class="grid gap-2">
-            <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">How did you hear about us? (Optional)</span>
+            <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">How did you hear about us? (Optional)</span>
             <input name="referral_source" class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
           </label>
         </div>
 
         <label class="grid gap-2">
-          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">About the Project</span>
+          <span class="font-geliat font-extrabold text-base md:text-lg tracking-[0.03em] text-[#2f376f]">About the Project</span>
           <textarea name="message" rows="5" required class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black"></textarea>
         </label>
 

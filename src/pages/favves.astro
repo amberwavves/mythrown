@@ -434,13 +434,13 @@ const showAvailableToShip = false;
   <section class="px-6 pt-16 pb-12">
     <div class="max-w-7xl mx-auto">
       <div class="-mt-1 text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">June 2026</div>
-      <h1 class="mt-3 text-5xl md:text-7xl font-black tracking-tight leading-[0.9]">
+      <h1 class="mt-5 md:mt-6 text-5xl md:text-7xl font-black tracking-tight leading-[0.9]">
         <span class="block font-brand-script normal-case">Fa<span class="inline-block tracking-[0.03em]">vv</span>es</span>
         <span class="block mt-2 text-3xl md:text-5xl font-semibold tracking-normal wave-line" aria-label="of amberwavves">
           <span class="wave-prefix" aria-hidden="true">of&nbsp;</span><span class="wave-word" aria-hidden="true"><span style="--i:0">a</span><span style="--i:1">m</span><span style="--i:2">b</span><span style="--i:3">e</span><span style="--i:4">r</span><span style="--i:5">w</span><span style="--i:6">a</span><span style="--i:7">v</span><span style="--i:8">v</span><span style="--i:9">e</span><span style="--i:10">s</span></span>
         </span>
       </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed">
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed font-geliat">
         A short list of things we're loving right now — split between pieces sitting in the shop
         and pieces you can order through us. Refreshed monthly.
       </p>
@@ -450,7 +450,7 @@ const showAvailableToShip = false;
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto">
       <div class="flex items-baseline justify-between border-b border-[color:var(--color-ink)]/15 pb-3 mb-8">
-        <h2 class="text-2xl md:text-3xl font-black tracking-[0.04em]">In Store while supplies last</h2>
+        <h2 class="text-xl md:text-2xl font-black tracking-[0.04em]">In Store while supplies last</h2>
         <span class="text-xs tracking-widest uppercase text-[color:var(--color-muted)]">1712 Spoke St</span>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -482,9 +482,9 @@ const showAvailableToShip = false;
                 <div class="w-full h-full bg-gradient-to-br from-amber-100 to-stone-300 group-hover:scale-105 transition-transform duration-500"></div>
               )}
             </div>
-            <div class="mt-3 flex justify-between text-xs tracking-widest uppercase">
-              <span>{p.name}</span>
-              {p.note ? <span class="text-sm md:text-base tracking-normal normal-case text-[color:var(--color-muted)]">{p.note}</span> : null}
+            <div class="mt-3 flex justify-between text-xs tracking-widest uppercase font-geliat">
+              <span class="font-geliat font-black text-sm md:text-base">{p.name}</span>
+              {p.note ? <span class="font-geliat text-sm md:text-base tracking-normal normal-case text-[color:var(--color-muted)]">{p.note}</span> : null}
             </div>
           </button>
         ))}
@@ -527,9 +527,9 @@ const showAvailableToShip = false;
                   <div class="w-full h-full bg-gradient-to-br from-stone-200 to-amber-200 group-hover:scale-105 transition-transform duration-500"></div>
                 )}
               </div>
-              <div class="mt-3 flex justify-between text-xs tracking-widest uppercase">
-                <span>{p.name}</span>
-                {p.note ? <span class="text-[color:var(--color-cherry)]">{p.note}</span> : null}
+              <div class="mt-3 flex justify-between text-xs tracking-widest uppercase font-geliat">
+                <span class="font-geliat font-black text-sm md:text-base">{p.name}</span>
+                {p.note ? <span class="font-geliat text-[color:var(--color-cherry)]">{p.note}</span> : null}
               </div>
             </button>
           ))}
@@ -562,10 +562,10 @@ const showAvailableToShip = false;
 
             <div class="max-w-2xl">
               <div id="favve-modal-note" class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">In Store Favve</div>
-              <h3 id="favve-modal-title" class="mt-3 text-4xl md:text-6xl leading-[0.95] font-brand-script normal-case">Item</h3>
+              <h3 id="favve-modal-title" class="mt-3 text-2xl md:text-4xl leading-[0.95] font-brand-script normal-case">Item</h3>
               <div id="favve-modal-price" class="mt-4 text-base md:text-lg font-semibold tracking-wide">Price upon request</div>
               <div id="favve-modal-placeholder" class="mt-3"></div>
-              <p id="favve-modal-description" class="mt-5 text-base md:text-lg leading-relaxed text-[color:var(--color-ink)]/85"></p>
+              <p id="favve-modal-description" class="mt-5 text-base md:text-lg leading-relaxed font-geliat text-[color:var(--color-ink)]/85"></p>
 
               <div class="mt-8 border-t border-black/10 pt-6">
                 <div class="font-geliat text-xs tracking-[0.2em] uppercase text-[color:var(--color-muted)]">Details</div>
@@ -658,14 +658,6 @@ const showAvailableToShip = false;
       }
       if (favveModalDescription) {
         favveModalDescription.textContent = description;
-        const shouldUseNewDescriptionFont =
-          title.toLowerCase().includes('blomb') ||
-          title.toLowerCase().includes('citrus + co garnish blends');
-        if (shouldUseNewDescriptionFont) {
-          favveModalDescription.classList.add('font-geliat');
-        } else {
-          favveModalDescription.classList.remove('font-geliat');
-        }
       }
       if (favveModalList) {
         favveModalList.innerHTML = '';
