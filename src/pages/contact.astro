@@ -6,50 +6,212 @@ import StatueBand from "../components/StatueBand.astro";
 <Base title="Contact | THROWN">
   <StatueBand />
   <section class="px-6 pt-16 pb-32">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-2xl mx-auto">
       <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Contact</div>
-      <h1 class="mt-3 text-5xl md:text-7xl font-black tracking-tight">Talk to me.</h1>
-      <p class="mt-6 text-lg leading-relaxed">
-        Tell us about your project. We respond to all inquiries within two business days.
+      <h1 class="mt-3 text-5xl md:text-7xl font-brand-script tracking-[0.01em]">Talk to me.</h1>
+      <p class="mt-5 text-base md:text-lg leading-relaxed">
+        Thank you for considering THROWN for your upcoming project. Please complete this inquiry so we can thoughtfully scope your design needs.
       </p>
 
       <form
         name="contact"
         method="POST"
+        action="/contact-thank-you"
         data-netlify="true"
-        class="mt-12 grid gap-6"
+        data-netlify-honeypot="bot-field"
+        class="mt-10 grid gap-5 md:gap-6"
       >
         <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden" aria-hidden="true">
+          <label>
+            Do not fill this out if you are human:
+            <input name="bot-field" />
+          </label>
+        </p>
 
         <label class="grid gap-2">
-          <span class="text-xs tracking-widest uppercase">Name</span>
-          <input name="name" required class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
+          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Name</span>
+          <input name="name" required class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
         </label>
 
         <label class="grid gap-2">
-          <span class="text-xs tracking-widest uppercase">Email</span>
-          <input name="email" type="email" required class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
+          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Email</span>
+          <input name="email" type="email" required class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
         </label>
 
         <label class="grid gap-2">
-          <span class="text-xs tracking-widest uppercase">Project Type</span>
-          <select name="project_type" class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black">
-            <option>Commercial</option>
-            <option>Residential</option>
-            <option>Consultation</option>
-            <option>Other</option>
-          </select>
+          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Project Type</span>
+          <div class="relative" data-custom-select data-required="true">
+            <input type="hidden" name="project_type" value="" data-select-input />
+            <button
+              type="button"
+              data-select-trigger
+              class="w-full text-left text-sm md:text-base leading-[1.25] min-h-[2.4rem] border-b border-black/30 bg-transparent py-1.5 outline-none focus:border-black"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <span data-select-label>Select project type</span>
+              <span class="absolute right-0 top-1/2 -translate-y-1/2 text-xs" aria-hidden="true">v</span>
+            </button>
+
+            <div
+              data-select-menu
+              class="hidden absolute left-0 right-0 z-10 mt-2 border border-black/20 bg-[#f8f3ea] shadow-md"
+              role="listbox"
+              aria-label="Project type options"
+            >
+              <button type="button" data-value="Commercial" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Commercial</button>
+              <button type="button" data-value="Residential" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Residential</button>
+              <button type="button" data-value="Hospitality" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Hospitality</button>
+              <button type="button" data-value="Other" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Other</button>
+            </div>
+
+            <p data-select-error class="hidden mt-2 text-xs uppercase tracking-[0.08em] text-[color:var(--color-cherry)]">
+              Please select a project type.
+            </p>
+          </div>
         </label>
 
         <label class="grid gap-2">
-          <span class="text-xs tracking-widest uppercase">About the Project</span>
-          <textarea name="message" rows="5" required class="border-b border-black/30 bg-transparent py-2 outline-none focus:border-black"></textarea>
+          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Design + Furnishings Investment</span>
+          <div class="relative" data-custom-select data-required="true">
+            <input type="hidden" name="project_investment" value="" data-select-input />
+            <button
+              type="button"
+              data-select-trigger
+              class="w-full text-left text-sm md:text-base leading-[1.25] min-h-[2.4rem] border-b border-black/30 bg-transparent py-1.5 outline-none focus:border-black"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <span data-select-label>Select budget range</span>
+              <span class="absolute right-0 top-1/2 -translate-y-1/2 text-xs" aria-hidden="true">v</span>
+            </button>
+
+            <div
+              data-select-menu
+              class="hidden absolute left-0 right-0 z-10 mt-2 border border-black/20 bg-[#f8f3ea] shadow-md"
+              role="listbox"
+              aria-label="Project investment options"
+            >
+              <button type="button" data-value="Less than $50,000" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Less than $50,000</button>
+              <button type="button" data-value="$50,000-$150,000" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">$50,000-$150,000</button>
+              <button type="button" data-value="$150,000-$250,000" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">$150,000-$250,000</button>
+              <button type="button" data-value="$250,000+" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">$250,000+</button>
+              <button type="button" data-value="Not sure yet" class="block w-full text-left px-3 py-2 text-sm md:text-base hover:bg-black/5">Not sure yet</button>
+            </div>
+
+            <p data-select-error class="hidden mt-2 text-xs uppercase tracking-[0.08em] text-[color:var(--color-cherry)]">
+              Please select an investment range.
+            </p>
+          </div>
         </label>
 
-        <button type="submit" class="justify-self-start px-6 py-3 bg-[color:var(--color-cherry)] text-white text-xs tracking-widest uppercase hover:bg-[color:var(--color-cherry-soft)] transition-colors">
+        <div class="grid gap-5 md:grid-cols-2 md:gap-6">
+          <label class="grid gap-2">
+            <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">Timeline (Optional)</span>
+            <input name="timeline" class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
+          </label>
+
+          <label class="grid gap-2">
+            <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">How did you hear about us? (Optional)</span>
+            <input name="referral_source" class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black" />
+          </label>
+        </div>
+
+        <label class="grid gap-2">
+          <span class="font-aliens-cows text-base md:text-lg tracking-[0.03em]">About the Project</span>
+          <textarea name="message" rows="5" required class="text-base md:text-lg border-b border-black/30 bg-transparent py-2 outline-none focus:border-black"></textarea>
+        </label>
+
+        <button type="submit" class="font-brand-script justify-self-start px-6 py-3 bg-[color:var(--color-cherry)] text-white text-xl md:text-2xl hover:bg-[#645e26] active:bg-[#645e26] transition-colors">
           Send Inquiry
         </button>
       </form>
     </div>
   </section>
 </Base>
+
+<script is:inline>
+  const roots = Array.from(document.querySelectorAll('[data-custom-select]'));
+
+  if (roots.length) {
+    const controls = roots.map((root) => {
+      const input = root.querySelector('[data-select-input]');
+      const trigger = root.querySelector('[data-select-trigger]');
+      const label = root.querySelector('[data-select-label]');
+      const menu = root.querySelector('[data-select-menu]');
+      const error = root.querySelector('[data-select-error]');
+      const options = Array.from(root.querySelectorAll('button[data-value]'));
+      const required = root.getAttribute('data-required') === 'true';
+      const form = root.closest('form');
+
+      return { root, input, trigger, label, menu, error, options, required, form };
+    });
+
+    const closeAllMenus = () => {
+      controls.forEach((control) => {
+        control.menu?.classList.add('hidden');
+        control.trigger?.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    controls.forEach((control) => {
+      control.trigger?.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isClosed = control.menu?.classList.contains('hidden');
+        closeAllMenus();
+        if (isClosed) {
+          control.menu?.classList.remove('hidden');
+          control.trigger?.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      control.options.forEach((option) => {
+        option.addEventListener('click', () => {
+          const value = option.getAttribute('data-value') || '';
+          if (control.input) control.input.value = value;
+          if (control.label) control.label.textContent = value;
+          control.error?.classList.add('hidden');
+          closeAllMenus();
+        });
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const clickedInside = controls.some((control) => control.root.contains(event.target));
+      if (!clickedInside) {
+        closeAllMenus();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeAllMenus();
+      }
+    });
+
+    const forms = [...new Set(controls.map((control) => control.form).filter(Boolean))];
+
+    forms.forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        let firstInvalidTrigger = null;
+
+        controls
+          .filter((control) => control.form === form && control.required)
+          .forEach((control) => {
+            if (!control.input?.value) {
+              event.preventDefault();
+              control.error?.classList.remove('hidden');
+              if (!firstInvalidTrigger) {
+                firstInvalidTrigger = control.trigger;
+              }
+            } else {
+              control.error?.classList.add('hidden');
+            }
+          });
+
+        firstInvalidTrigger?.focus();
+      });
+    });
+  }
+</script>

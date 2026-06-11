@@ -6,58 +6,70 @@ import Base from "../layouts/Base.astro";
 
   <!-- HERO: background video, oversized headline matching site vibe -->
   <section class="relative min-h-[88vh] md:min-h-screen w-full overflow-hidden bg-black flex items-end">
-    <video
-      class="absolute inset-0 w-full h-full object-cover"
-      src="/videos/shop-hero.mp4"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      poster="/images/shop/trio-storefront.jpg"
-    ></video>
-
-    <!-- Subtle bottom-weighted tint for legibility -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30"></div>
-
-    <!-- Editorial side rails -->
-    <div class="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-10 items-center gap-3 text-white/80 [writing-mode:vertical-rl] rotate-180 text-[0.65rem] tracking-[0.45em] uppercase">
-      <span>Wheeler District</span>
-      <span class="w-12 h-px bg-white/60"></span>
-      <span>OKC</span>
+    <div class="absolute inset-0">
+      <video
+        id="shopHeroVideoA"
+        class="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-[420ms] ease-in-out"
+        src="/videos/shop-hero.mp4"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        poster="/images/shop/trio-storefront.jpg"
+      ></video>
+      <video
+        id="shopHeroVideoB"
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[420ms] ease-in-out"
+        src="/videos/shop-hero.mp4"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        poster="/images/shop/trio-storefront.jpg"
+      ></video>
     </div>
-    <div class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-10 items-center gap-3 text-white/80 [writing-mode:vertical-rl] text-[0.65rem] tracking-[0.45em] uppercase">
+
+    <!-- Warm orange tone over video + depth gradient for legibility -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.44),rgba(0,0,0,0.10),rgba(0,0,0,0.16))]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(125%_95%_at_50%_32%,rgba(237,135,64,0.62),rgba(198,86,30,0.66)_44%,rgba(132,46,16,0.52)_74%,rgba(35,8,3,0.28)_100%)] mix-blend-overlay"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(130deg,rgba(245,142,66,0.34),rgba(160,64,24,0.42),rgba(80,26,10,0.28))] mix-blend-soft-light"></div>
+    <div class="absolute inset-0 bg-[rgba(198,86,30,0.18)] mix-blend-multiply"></div>
+    <div class="absolute inset-0 pointer-events-none opacity-[0.14] mix-blend-soft-light bg-[radial-gradient(rgba(255,255,255,0.9)_0.6px,transparent_0.9px)] [background-size:3px_3px]"></div>
+    <div class="absolute inset-0 pointer-events-none opacity-[0.08] mix-blend-overlay bg-[repeating-linear-gradient(15deg,rgba(0,0,0,0.55)_0_1px,transparent_1px_4px)]"></div>
+
+    <!-- Editorial side rails: single horizontal line on the right with separators -->
+    <div class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-10 items-center gap-3 text-white/80 text-[0.65rem] tracking-[0.45em] uppercase">
       <span>1712 Spoke St</span>
+      <span class="w-px h-4 bg-white/60" aria-hidden="true"></span>
+      <span>Wheeler District</span>
+      <span class="w-px h-4 bg-white/60" aria-hidden="true"></span>
+      <span>OKC</span>
     </div>
 
     <!-- Headline content (bottom-anchored like homepage) -->
     <div class="relative z-10 w-full px-6 pt-24 pb-16 md:pt-40 md:pb-20">
       <div class="max-w-7xl mx-auto">
-        <div class="text-xs tracking-[0.3em] uppercase text-white/90">Visit the Shop</div>
+        <div class="relative inline-block">
+          <h1 class="home-hero-thrown text-[#45519f] leading-[0.86] tracking-tight text-[16vw] md:text-[10vw] drop-shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
+            VISIT THE SHOP
+          </h1>
+          <p class="home-hero-subtext-script absolute left-3 md:left-6 top-[86%] md:top-[88%] z-20 text-white whitespace-nowrap text-[clamp(1.5rem,4.4vw,3.8rem)] leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">
+            thrown design &amp; wine
+          </p>
+        </div>
 
-        <h1 class="mt-4 font-black leading-[0.82] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
-          <span class="block text-[18vw] md:text-[14vw]">THROWN</span>
-          <span class="block text-[8vw] md:text-[6vw] mt-1">DESIGN <span style="color:#e8a93a;">&amp;</span> WINE</span>
-        </h1>
-
-        <p class="mt-8 uppercase text-white font-semibold tracking-[0.15em] text-[clamp(0.7rem,1.6vw,1.25rem)] max-w-3xl">
+        <p class="mt-6 md:mt-14 ml-3 md:ml-6 text-white/95 font-semibold tracking-[0.06em] leading-relaxed text-[clamp(1.05rem,1.7vw,1.35rem)] max-w-3xl bg-black/28 backdrop-blur-[1px] px-4 py-3">
           A thoughtfully curated wine + gift boutique in the heart of the Wheller Distrct, OKC.
         </p>
 
-        <div class="mt-10 flex flex-wrap items-center gap-4">
+        <div class="mt-10 md:mt-16 ml-3 md:ml-6 flex flex-wrap items-center gap-4">
           <a
-            href="https://www.google.com/maps/place/Thrown+Design+and+Wine/@35.448369,-97.5342719,17z"
+            href="https://www.google.com/maps/search/?api=1&query=Thrown+Design+and+Wine+1712+Spoke+St+Oklahoma+City+OK+73108"
             target="_blank"
             rel="noopener"
-            class="px-6 py-3 bg-[color:var(--color-cherry)] text-white text-xs tracking-widest uppercase hover:bg-[color:var(--color-cherry-soft)] transition-colors"
+            class="px-6 py-3 bg-[#3b0f1a] text-white text-xs tracking-widest uppercase hover:bg-[#2f0b15] active:bg-[#2f0b15] transition-colors"
           >
-            Visit Us &nbsp;&rarr;
-          </a>
-          <a
-            href="mailto:shop@mythrown.com"
-            class="px-6 py-3 bg-white/10 backdrop-blur-sm text-white text-xs tracking-widest uppercase border border-white/40 hover:bg-white hover:text-black transition-colors"
-          >
-            shop@mythrown.com
+            Visit Us
           </a>
         </div>
       </div>
@@ -65,60 +77,112 @@ import Base from "../layouts/Base.astro";
   </section>
 
   <!-- TRIO: images + paragraphs -->
-  <section class="px-6 pt-20 pb-24">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 md:gap-12">
+  <section class="relative overflow-hidden px-6 pt-20 pb-14 md:pb-20">
+    <div class="relative z-10 max-w-6xl mx-auto grid md:grid-cols-3 gap-10 md:gap-12">
       <div>
-        <img
-          src="/images/shop/trio-storefront.jpg"
-          alt="Exterior of the THROWN storefront with striped awning"
-          class="w-full h-auto block aspect-square object-cover"
-          loading="lazy"
-        />
-        <p class="mt-6 text-base leading-relaxed">
-          When you&rsquo;re picking out a gift for someone you love, you want something both stylish
-          and unique. You and your giftee are individuals, and you both deserve home decor and
-          lifestyle accessories that match your unique personalities. That&rsquo;s why Thrown offers
-          special, limited-run items you won&rsquo;t find anywhere else.
+        <div class="relative">
+          <div class="absolute inset-0 translate-x-2 translate-y-2 bg-[#645e26]/22" aria-hidden="true"></div>
+          <img
+            src="/images/shop/thrown-exterior-updated.png"
+            alt="Thrown exterior"
+            class="relative z-10 w-full h-auto block aspect-square object-cover border border-[#645e26]"
+            style="object-position: center 30%;"
+            loading="lazy"
+          />
+        </div>
+        <p class="font-geliat font-semibold mt-6 text-lg md:text-xl leading-relaxed">
+          Gift-giving should feel elevated, not ordinary. At Thrown, you’ll discover polished,
+          limited-run accessories and lifestyle pieces designed to feel made for the person you’re
+          shopping for.
         </p>
       </div>
       <div>
-        <img
-          src="/images/shop/trio-office.png"
-          alt="Amber inside the THROWN office with mosaic LOVE letters"
-          class="w-full h-auto block aspect-square object-cover"
-          loading="lazy"
-        />
-        <p class="mt-6 text-base leading-relaxed">
-          Because our items are limited run, we don&rsquo;t keep an updated inventory on our website.
-          You&rsquo;ll have to come and visit us to see what&rsquo;s in stock. However, we can promise
-          we&rsquo;ve put lots of thought and care into our selection. Take a trip out to OKC&rsquo;s
-          Wheeler District today to see what special items we have in stock.
+        <div class="relative">
+          <div class="absolute inset-0 translate-x-2 translate-y-2 bg-[#893521]/22" aria-hidden="true"></div>
+          <div class="relative z-10 overflow-hidden bg-black border border-[#645e26]">
+            <video
+              class="w-full h-full block aspect-square object-cover"
+              poster="/images/shop/trio-storefront.jpg"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              style="filter: saturate(1.15) contrast(1.1) brightness(1.03);"
+            >
+              <source src="/videos/shop-hero-custom.mp4" type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </div>
+        <p class="font-geliat font-semibold mt-6 text-lg md:text-xl leading-relaxed">
+          Our collection changes often, and the best way to see what’s available is in person or by
+          checking our Instagram stories and posts. Visit the shop in OKC’s Wheeler District to
+          discover the latest limited-run accessories and curated finds.
         </p>
       </div>
       <div>
-        <img
-          src="/images/shop/trio-wine.png"
-          alt="Wine bottles with cowboy hat labels and brass horse bottle opener"
-          class="w-full h-auto block aspect-square object-cover"
-          loading="lazy"
-        />
-        <p class="mt-6 text-base leading-relaxed">
-          Our wine selection stems from Amber&rsquo;s passion for both wine itself and the service
-          industry, where she worked for thirteen years. She loved learning about wine along the
-          way, so wine felt like a natural addition to the boutique space. We&rsquo;ve thoughtfully
-          curated our favorite wines by the bottle, and we&rsquo;d love to help you find the perfect
-          pour.
+        <div class="relative">
+          <div class="absolute inset-0 translate-x-2 translate-y-2 bg-[#45519f]/22" aria-hidden="true"></div>
+          <img
+            src="/images/shop/amberimage-sq.jpeg"
+            alt="Amber posing in the Thrown shop with wine bottles and boutique decor"
+            class="relative z-10 w-full h-auto block aspect-square object-cover border border-[#645e26]"
+            loading="lazy"
+          />
+        </div>
+        <p class="font-geliat font-semibold mt-6 text-lg md:text-xl leading-relaxed">
+          Amber’s thirteen years in the hospitality industry helped her discover a love for wine and shape
+          the boutique’s bottle selection. We stock mostly organic, thoughtfully chosen wines
+          and are happy to help you find the perfect pour.
         </p>
       </div>
     </div>
 
-    <div class="max-w-6xl mx-auto mt-14 text-center">
+    <div class="relative z-10 max-w-6xl mx-auto mt-14 flex flex-wrap items-center justify-center gap-4">
       <a
-        href="https://www.google.com/maps/dir//Thrown+Design+and+Wine,+1712+Spoke+St,+Oklahoma+City,+OK+73108"
+        href="https://www.google.com/maps/search/?api=1&query=Thrown+Design+and+Wine+1712+Spoke+St+Oklahoma+City+OK+73108"
         target="_blank"
         rel="noopener"
-        class="inline-block bg-black text-white px-8 py-3 text-sm tracking-[0.25em] uppercase hover:bg-[color:var(--color-cherry)] transition"
-      >Visit us! 1712 Spoke Street</a>
+        class="inline-block text-center font-brand-script bg-[#3b0f1a] text-white px-8 py-3 text-2xl md:text-3xl tracking-[0.03em] normal-case hover:bg-[#645e26] active:bg-[#645e26] transition-colors"
+      >Visit us 1<span class="relative inline-block">7<span class="absolute left-[0.08em] right-[0.08em] top-[0.48em] h-[0.05em] bg-white/95" aria-hidden="true"></span></span>12 Spoke Street</a>
+      <a
+        href="/contact"
+        class="inline-block font-brand-script bg-[#3b0f1a] text-white px-8 py-3 text-2xl md:text-3xl tracking-[0.03em] normal-case hover:bg-[#645e26] active:bg-[#645e26] transition-colors"
+      >Contact us</a>
+    </div>
+  </section>
+
+  <!-- STEP INTO MY OFFICE: embedded video + copy -->
+  <section class="relative overflow-hidden px-6 pt-12 pb-24 md:pt-16 border-t border-black/10">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="absolute inset-0 bg-[url('/images/statue.png')] bg-cover bg-center opacity-[0.06]"></div>
+    </div>
+    <div class="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="font-brand-script text-3xl md:text-5xl leading-none text-[color:var(--color-cherry)] whitespace-nowrap">Step into my office</div>
+        <h2 class="mt-4 text-3xl md:text-5xl font-black tracking-[0.02em] leading-tight">A space to meet, chat, shop, and design.</h2>
+        <p class="font-geliat font-semibold mt-6 text-xl md:text-2xl leading-relaxed">
+          Thrown is my design studio and a welcoming place to connect with clients. You&rsquo;ll also find
+          a curated selection of worldly wines and unique gifts handpicked by me, Amber. No design
+          appointment is needed to stop by. We&rsquo;re open Wednesday&ndash;Saturday, 12&ndash;5 PM. Come say hi!
+        </p>
+      </div>
+      <div class="w-full md:w-[94%] lg:w-[88%] mx-auto">
+        <div class="relative">
+          <div class="absolute inset-0 translate-x-2 translate-y-2 bg-[#c6561e]/24" aria-hidden="true"></div>
+          <div class="relative z-10 overflow-hidden border border-[#c6561e]">
+            <img
+              class="block w-full h-auto"
+              src="/images/shop/desk1.jpeg"
+              alt="Amber at her desk inside the THROWN office"
+              loading="lazy"
+              style="filter: contrast(1.24) saturate(1.12) brightness(1.05) drop-shadow(0 14px 24px rgba(0,0,0,0.18));"
+            />
+            <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(245,142,66,0.2),rgba(198,86,30,0.24),rgba(134,44,35,0.18))] mix-blend-multiply pointer-events-none" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -129,53 +193,346 @@ import Base from "../layouts/Base.astro";
         <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Address</div>
         <p class="mt-3 text-lg leading-relaxed">
           1712 Spoke Street<br />
-          Wheeler District<br />
-          Oklahoma City, OK<br />
-          <a href="https://maps.google.com/?q=Thrown+Design+and+Wine+Oklahoma+City" class="underline underline-offset-4 hover:text-[color:var(--color-cherry)]">Get directions</a>
+          Oklahoma City, OK 73108<br />
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Thrown+Design+and+Wine+1712+Spoke+St+Oklahoma+City+OK+73108" class="underline underline-offset-4 hover:text-[color:var(--color-cherry)]">Get directions</a>
         </p>
       </div>
       <div>
         <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Hours</div>
         <ul class="mt-3 text-lg leading-relaxed space-y-1">
+          <li>Mon &ndash; Tues &middot; Design appts only</li>
           <li>Wed &ndash; Sat &middot; 12 &ndash; 5</li>
-          <li>Sun &ndash; Tue &middot; Closed</li>
+          <li>Closed Sundays</li>
         </ul>
+        <div id="nightMarketWrap" class="mt-4 relative flex justify-center">
+          <button
+            id="nightMarketTrigger"
+            type="button"
+            class="inline-flex flex-col items-center gap-2 bg-[#45519f] text-white border-2 border-white ring-2 ring-[#45519f] px-5 py-4 shadow-[0_14px_28px_rgba(0,0,0,0.22)]"
+            aria-expanded="false"
+            aria-controls="nightMarketBubble"
+          >
+            <span class="font-brand-script text-3xl md:text-4xl tracking-[0.02em] whitespace-nowrap">Friday night markets</span>
+            <span class="text-lg md:text-xl leading-relaxed whitespace-nowrap">May &ndash; October · 6pm &ndash; 9pm</span>
+            <span class="text-sm md:text-base leading-relaxed whitespace-nowrap uppercase tracking-[0.05em]">Thrown open 12pm &ndash; 9pm every Friday</span>
+          </button>
+          <div id="nightMarketBubble" class="night-market-bubble is-hidden" aria-hidden="true">
+            <img src="/images/shop/friday-market-flyer-light.png" alt="Friday market daytime flyer" loading="lazy" />
+            <img src="/images/shop/friday-market-flyer-night.png" alt="Friday market night flyer" loading="lazy" />
+          </div>
+        </div>
+        <div class="mt-5 flex justify-center">
+          <p class="text-center text-[color:var(--color-cherry)] text-base md:text-lg leading-relaxed">
+            4th Friday night market<br />
+            wine tastings!<br />
+            <a href="https://www.instagram.com/thrownokc" target="_blank" rel="noopener" class="underline underline-offset-4 hover:text-[#45519f]">See instagram for details!</a>
+          </p>
+        </div>
       </div>
       <div>
         <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Contact</div>
         <p class="mt-3 text-lg leading-relaxed">
-          <a href="mailto:shop@mythrown.com" class="underline underline-offset-4 hover:text-[color:var(--color-cherry)]">shop@mythrown.com</a>
+          <a href="/contact" class="underline underline-offset-4 hover:text-[color:var(--color-cherry)]">amber@mythrown.com</a>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- STEP INTO MY OFFICE: embedded video + copy -->
-  <section class="px-6 py-24 border-t border-black/10">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Step into my office</div>
-        <h2 class="mt-3 text-3xl md:text-5xl font-black tracking-tight leading-tight">A space to meet, sip, and shop.</h2>
-        <p class="mt-6 text-lg leading-relaxed">
-          Thrown is my design office &amp; a space to meet with clients. It also boasts a
-          collection of worldly wines, and unique gifts curated by me, Amber. You don&rsquo;t have
-          to have a design appointment to stop by. We are open Wednesday &ndash; Saturday 12 &ndash; 5pm.
-          Come say hi!
-        </p>
-      </div>
-      <div class="w-full aspect-video bg-black overflow-hidden">
-        <video
-          class="w-full h-full object-cover"
-          src="/videos/shop-office.mp4"
-          controls
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="/images/shop/trio-office.png"
-        ></video>
-      </div>
-    </div>
-  </section>
+  <script type="module">
+    const videoA = document.getElementById("shopHeroVideoA");
+    const videoB = document.getElementById("shopHeroVideoB");
 
+    if (videoA instanceof HTMLVideoElement && videoB instanceof HTMLVideoElement) {
+      const fadeSeconds = 0.42;
+      const offsetSeconds = 0.08;
+      let activeVideo = videoA;
+      let idleVideo = videoB;
+      let isTransitioning = false;
+
+      const playSilently = (video) => {
+        video.muted = true;
+        video.defaultPlaybackRate = 0.76;
+        video.playbackRate = 0.76;
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {});
+        }
+      };
+
+      const alignIdleVideo = () => {
+        if (!activeVideo.duration || !Number.isFinite(activeVideo.duration)) {
+          return;
+        }
+        const duration = activeVideo.duration;
+        const targetTime = (activeVideo.currentTime + offsetSeconds) % duration;
+        idleVideo.currentTime = targetTime;
+      };
+
+      const swapVideos = () => {
+        isTransitioning = true;
+        alignIdleVideo();
+        playSilently(idleVideo);
+        activeVideo.style.opacity = "0";
+        idleVideo.style.opacity = "1";
+
+        window.setTimeout(() => {
+          const previousActive = activeVideo;
+          activeVideo = idleVideo;
+          idleVideo = previousActive;
+          idleVideo.style.opacity = "0";
+          isTransitioning = false;
+        }, fadeSeconds * 1000 + 80);
+      };
+
+      const tick = () => {
+        const duration = activeVideo.duration;
+        if (Number.isFinite(duration) && duration > fadeSeconds + 0.3) {
+          const remaining = duration - activeVideo.currentTime;
+          if (!isTransitioning && remaining <= fadeSeconds) {
+            swapVideos();
+          }
+        }
+        window.requestAnimationFrame(tick);
+      };
+
+      const onReady = () => {
+        playSilently(videoA);
+        playSilently(videoB);
+        alignIdleVideo();
+        tick();
+      };
+
+      if (videoA.readyState >= 1) {
+        onReady();
+      } else {
+        videoA.addEventListener("loadedmetadata", onReady, { once: true });
+      }
+    }
+
+    const nightMarketWrap = document.getElementById("nightMarketWrap");
+    const nightMarketTrigger = document.getElementById("nightMarketTrigger");
+    const nightMarketBubble = document.getElementById("nightMarketBubble");
+
+    if (
+      nightMarketWrap instanceof HTMLElement &&
+      nightMarketTrigger instanceof HTMLButtonElement &&
+      nightMarketBubble instanceof HTMLElement
+    ) {
+      let popTimer = 0;
+      let hideTimer = 0;
+
+      const clearTimers = () => {
+        window.clearTimeout(popTimer);
+        window.clearTimeout(hideTimer);
+      };
+
+      const hideBubble = () => {
+        clearTimers();
+        nightMarketBubble.classList.remove("is-visible", "is-pop-out");
+        nightMarketBubble.classList.add("is-hidden");
+        nightMarketBubble.setAttribute("aria-hidden", "true");
+        nightMarketTrigger.setAttribute("aria-expanded", "false");
+      };
+
+      const showBubble = () => {
+        clearTimers();
+        nightMarketBubble.classList.remove("is-hidden", "is-pop-out");
+        nightMarketBubble.classList.add("is-visible");
+        nightMarketBubble.setAttribute("aria-hidden", "false");
+        nightMarketTrigger.setAttribute("aria-expanded", "true");
+
+        popTimer = window.setTimeout(() => {
+          nightMarketBubble.classList.add("is-pop-out");
+        }, 3400);
+
+        hideTimer = window.setTimeout(() => {
+          hideBubble();
+        }, 3850);
+      };
+
+      nightMarketTrigger.addEventListener("mouseenter", showBubble);
+      nightMarketTrigger.addEventListener("focus", showBubble);
+      nightMarketTrigger.addEventListener("click", () => {
+        if (nightMarketBubble.classList.contains("is-visible")) {
+          hideBubble();
+        } else {
+          showBubble();
+        }
+      });
+
+      nightMarketWrap.addEventListener("mouseleave", () => {
+        if (nightMarketBubble.classList.contains("is-visible")) {
+          popTimer = window.setTimeout(() => {
+            nightMarketBubble.classList.add("is-pop-out");
+          }, 120);
+          hideTimer = window.setTimeout(() => {
+            hideBubble();
+          }, 420);
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!nightMarketWrap.contains(event.target)) {
+          hideBubble();
+        }
+      });
+    }
+
+  </script>
+
+  <style>
+    .night-market-bubble {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 0.85rem);
+      transform: translateX(-50%);
+      z-index: 40;
+      width: min(86vw, 34rem);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+      pointer-events: none;
+      transform-origin: center bottom;
+    }
+
+    .night-market-bubble::before,
+    .night-market-bubble::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      border-radius: 999px;
+      z-index: -1;
+    }
+
+    .night-market-bubble::before {
+      width: 92%;
+      height: 72%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.08) 54%, rgba(255, 255, 255, 0) 100%);
+      filter: blur(1px);
+    }
+
+    .night-market-bubble::after {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      opacity: 0;
+      box-shadow:
+        -34px -18px 0 -6px rgba(255, 255, 255, 0.85),
+        32px -20px 0 -6px rgba(255, 255, 255, 0.82),
+        -28px 20px 0 -6px rgba(255, 255, 255, 0.84),
+        30px 22px 0 -6px rgba(255, 255, 255, 0.8),
+        0 -34px 0 -6px rgba(255, 255, 255, 0.82),
+        0 34px 0 -6px rgba(255, 255, 255, 0.8);
+    }
+
+    .night-market-bubble img {
+      width: 100%;
+      height: auto;
+      border: 1px solid rgba(69, 81, 159, 0.35);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      background: #f7f3eb;
+    }
+
+    .night-market-bubble.is-hidden {
+      display: none;
+    }
+
+    .night-market-bubble.is-visible {
+      display: grid;
+      animation: marketBubbleIn 420ms cubic-bezier(0.22, 1, 0.36, 1), marketBubbleFloat 3.25s 180ms ease-out forwards;
+    }
+
+    .night-market-bubble.is-pop-out {
+      animation: marketBubblePop 360ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+
+    .night-market-bubble.is-pop-out::after {
+      animation: marketBubbleBurst 300ms ease-out forwards;
+    }
+
+    .night-market-bubble.is-pop-out img {
+      animation: flyerPop 320ms ease-in forwards;
+    }
+
+    @keyframes marketBubbleIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(22px) scale(0.84);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+    }
+
+    @keyframes marketBubbleFloat {
+      from {
+        transform: translateX(-50%) translateY(0) scale(0.96);
+      }
+      40% {
+        transform: translateX(-48.8%) translateY(-22px) scale(1.06);
+      }
+      72% {
+        transform: translateX(-50.8%) translateY(-46px) scale(1.14);
+      }
+      to {
+        transform: translateX(-50%) translateY(-72px) scale(1.2);
+      }
+    }
+
+    @keyframes marketBubblePop {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-70px) scale(1.22);
+      }
+      48% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-80px) scale(1.32);
+      }
+      72% {
+        opacity: 0.95;
+        transform: translateX(-50%) translateY(-84px) scale(0.94);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-92px) scale(0.08);
+      }
+    }
+
+    @keyframes flyerPop {
+      0% {
+        filter: blur(0);
+        transform: scale(1);
+      }
+      100% {
+        filter: blur(3px);
+        transform: scale(0.86);
+      }
+    }
+
+    @keyframes marketBubbleBurst {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.3);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(8.2);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .night-market-bubble {
+        width: min(92vw, 26rem);
+        gap: 0.45rem;
+      }
+    }
+
+  </style>
+
+ 
 </Base>
+

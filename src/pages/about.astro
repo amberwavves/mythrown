@@ -8,7 +8,7 @@ import StatueBand from "../components/StatueBand.astro";
   <section class="px-6 pt-16 pb-32">
     <div class="max-w-5xl mx-auto">
       <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">About</div>
-      <h1 class="mt-3 text-5xl md:text-7xl font-black tracking-tight">Amber Foster.</h1>
+      <h1 class="mt-3 text-5xl md:text-7xl font-brand-script tracking-[0.01em]">Amber Foster.</h1>
       <a
         href="https://www.instagram.com/amberwavves/"
         target="_blank"
@@ -16,21 +16,29 @@ import StatueBand from "../components/StatueBand.astro";
         class="mt-3 inline-block text-sm md:text-base tracking-[0.2em] uppercase text-[color:var(--color-cherry)] hover:underline underline-offset-4"
       >@amberwavves</a>
 
-      <div class="mt-12 grid md:grid-cols-3 gap-12">
-        <div class="md:col-span-1">
-          <img src="/images/about/about-02.png" alt="Amber Foster" class="w-full h-auto block" loading="lazy" />
+      <div class="mt-12 grid md:grid-cols-5 gap-12">
+        <div class="md:col-span-2">
+          <div class="archive-frame">
+            <div class="archive-frame-profile">
+              <div class="archive-frame-mat">
+                <img src="/images/about/amber-new.png" alt="Amber Foster" class="w-full h-auto block" loading="lazy" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="md:col-span-2 space-y-6 text-lg leading-relaxed">
+        <div class="md:col-span-3 space-y-6 text-lg md:text-xl leading-relaxed font-aliens-cows bg-[#eee9e2]/88 border border-[#633b2f]/15 p-6 md:p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <p>
-            With a degree in Fine Arts &amp; Interior Design, along with 15 years of experience &mdash;
+            With a bachelor's in Fine Arts &amp; Interior Design, along with thirteen years of design experience &mdash;
             Amber Foster is the principal designer and owner of THROWN, a studio practicing
             commercial and residential interior design in Oklahoma City and beyond.
           </p>
           <p>
             Her work has spanned hospitality, retail, and private homes.
+            She loves color and pattern, while always appreciating a good neutral.
+            She prides herself on understanding her clients' vision to create spaces that feel like the truest expression of who they are.
           </p>
           <p>
-            Outside the studio, she's most often found sourcing vintage, pruning the roses, or
+            Outside the studio, she's most often found sourcing vintage, working in the garden, or
             sharing a glass of wine with friends.
           </p>
         </div>
@@ -56,3 +64,55 @@ import StatueBand from "../components/StatueBand.astro";
     </a>
   </aside>
 </Base>
+
+<style>
+  .archive-frame {
+    border: 1px solid #5c4516;
+    background: linear-gradient(145deg, #6b4b15 0%, #9b7322 14%, #e0c171 36%, #b8842a 56%, #f0d999 78%, #876118 100%);
+    padding: 7px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+  }
+
+  .archive-frame-profile {
+    border: 1px solid #7b5a1a;
+    background:
+      linear-gradient(180deg, rgba(255, 244, 210, 0.42), rgba(126, 90, 22, 0.22)),
+      linear-gradient(155deg, #e8cf86 0%, #bb8a30 48%, #f3dfa6 100%);
+    padding: 10px;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 248, 226, 0.75),
+      inset 0 -1px 1px rgba(94, 66, 14, 0.45);
+  }
+
+  .archive-frame-mat {
+    border: 1px solid #d8ccb0;
+    padding: 12px;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(143, 126, 96, 0.14) 0 0.6px, transparent 0.8px),
+      linear-gradient(180deg, #f8f3e8 0%, #efe7d8 100%);
+    background-size: 10px 10px, 100% 100%;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.72),
+      inset 0 -1px 2px rgba(154, 135, 103, 0.22);
+  }
+
+  .archive-frame-mat img {
+    border: 1px solid #3a2e1c;
+  }
+
+  @media (max-width: 767px) {
+    .archive-frame {
+      padding: 4px;
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    .archive-frame-profile {
+      padding: 6px;
+    }
+
+    .archive-frame-mat {
+      padding: 7px;
+      background-size: 9px 9px, 100% 100%;
+    }
+  }
+</style>

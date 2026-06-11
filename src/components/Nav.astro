@@ -3,29 +3,96 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/commercial", label: "Commercial" },
   { href: "/residential", label: "Residential" },
+  { href: "/3d-rendering-portfolio", label: "RENDERINGS" },
   { href: "/services", label: "Services" },
   { href: "/shop", label: "Visit the Shop" },
   { href: "/favves", label: "Favves" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
+
+const showCartButton = false;
 ---
 
 <header class="sticky top-0 z-30 bg-[color:var(--color-bg)]/90 backdrop-blur border-b border-black/10">
-  <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+  <nav class="relative max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
     <a href="/" class="flex items-center">
-      <span class="font-black tracking-[0.3em] text-sm">THROWN</span>
+      <span class="font-brand-display italic tracking-[0.3em] text-sm text-[#3b0f1a]">THROWN</span>
     </a>
-    <ul class="hidden md:flex gap-6 text-xs tracking-widest uppercase">
+    <ul class="hidden md:flex items-center gap-6 text-xs tracking-widest uppercase text-[#45519f]">
       {links.map((l) => (
         <li>
           <a
             href={l.href}
-            class="hover:text-[color:var(--color-cherry)] transition-colors"
+            class="hover:text-[#645e26] active:text-[#645e26] transition-colors"
           >{l.label}</a>
         </li>
       ))}
+      {showCartButton && (
+        <li>
+          <a
+            href="/cart"
+            class="inline-flex items-center gap-2 border border-[#45519f]/35 px-3 py-1.5 hover:text-[#645e26] hover:border-[#645e26]/45 transition-colors"
+            aria-label="Open cart"
+          >
+            Cart
+            <span data-cart-count class="inline-flex min-w-5 justify-center rounded-full bg-[#45519f] px-1.5 py-0.5 text-[0.62rem] leading-none text-white">0</span>
+          </a>
+        </li>
+      )}
     </ul>
-    <button class="md:hidden text-xs tracking-widest uppercase" aria-label="Open menu">Menu</button>
+    <details class="relative md:hidden">
+      <summary class="list-none cursor-pointer text-xs tracking-widest uppercase select-none" aria-label="Open menu">
+        Menu
+      </summary>
+      <ul class="absolute right-0 mt-3 w-64 bg-[color:var(--color-bg)] border border-black/10 shadow-lg py-3 px-4 space-y-3 text-xs tracking-widest uppercase text-[#45519f]">
+        {showCartButton && (
+          <li>
+            <a
+              href="/cart"
+              class="flex items-center justify-between border border-[#45519f]/35 px-3 py-2 hover:text-[#645e26] hover:border-[#645e26]/45 transition-colors"
+              aria-label="Open cart"
+            >
+              <span>Cart</span>
+              <span data-cart-count class="inline-flex min-w-5 justify-center rounded-full bg-[#45519f] px-1.5 py-0.5 text-[0.62rem] leading-none text-white">0</span>
+            </a>
+          </li>
+        )}
+        {links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="block hover:text-[#645e26] active:text-[#645e26] transition-colors"
+            >{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </details>
   </nav>
 </header>
+
+<script>
+  const CART_KEY = "thrownCart";
+
+  function getCartCount() {
+    if (typeof window === "undefined") return 0;
+    try {
+      const parsed = JSON.parse(localStorage.getItem(CART_KEY) ?? "[]");
+      if (!Array.isArray(parsed)) return 0;
+      return parsed.reduce((total, item) => total + Number(item?.qty ?? 1), 0);
+    } catch {
+      return 0;
+    }
+  }
+
+  function renderCartCount() {
+    const count = getCartCount();
+    document.querySelectorAll("[data-cart-count]").forEach((el) => {
+      el.textContent = String(count);
+    });
+  }
+
+  renderCartCount();
+  window.addEventListener("storage", renderCartCount);
+  window.addEventListener("focus", renderCartCount);
+</script>

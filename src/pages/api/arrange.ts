@@ -21,6 +21,7 @@ export const GET: APIRoute = ({ url }) => {
       visible: state.visible.map((p) => p.slice(prefix.length)),
       hidden: state.hidden.map((p) => p.slice(prefix.length)),
       files: state.files,
+      crop: state.crop,
     }),
     { headers: { "content-type": "application/json" } }
   );
@@ -31,8 +32,12 @@ export const POST: APIRoute = async ({ request }) => {
   if (!body || !isCategory(body.category) || !Array.isArray(body.order) || !Array.isArray(body.hidden)) {
     return new Response(JSON.stringify({ error: "bad payload" }), { status: 400 });
   }
+  const crop = body.crop ?? {};
+  if (typeof crop !== "object" || crop === null || Array.isArray(crop)) {
+    return new Response(JSON.stringify({ error: "bad crop payload" }), { status: 400 });
+  }
   try {
-    const saved = saveOrder(body.category, body.order, body.hidden);
+    const saved = saveOrder(body.category, body.order, body.hidden, crop as Record<string, any>);
     return new Response(JSON.stringify({ ok: true, saved }), {
       headers: { "content-type": "application/json" },
     });

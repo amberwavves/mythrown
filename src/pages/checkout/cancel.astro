@@ -1,0 +1,17 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Checkout Canceled | THROWN" description="Your checkout was canceled.">
+  <section class="px-6 py-24 min-h-[65vh] bg-[linear-gradient(165deg,#f5efe5_0%,#efe6d8_52%,#ece2d2_100%)]">
+    <div class="max-w-3xl mx-auto text-center bg-white/85 border border-black/10 p-8 md:p-12">
+      <p class="text-xs tracking-[0.24em] uppercase text-[color:var(--color-cherry)]">Checkout Canceled</p>
+      <h1 class="mt-3 text-4xl md:text-6xl font-black leading-[0.95]">Your cart is still saved</h1>
+      <p class="mt-4 text-base md:text-lg">No worries. Your items are still in your cart and you can pick up where you left off.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="/checkout" class="px-6 py-3 bg-[#3b0f1a] text-white text-xs tracking-[0.18em] uppercase hover:bg-[#2f0b15] transition-colors">Return to Checkout</a>
+        <a href="/shop" class="px-6 py-3 border border-black/30 text-xs tracking-[0.18em] uppercase hover:bg-black hover:text-white transition-colors">Back to Shop</a>
+      </div>
+    </div>
+  </section>
+</Base>

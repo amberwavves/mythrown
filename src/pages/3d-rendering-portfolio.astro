@@ -1,0 +1,136 @@
+---
+import Base from "../layouts/Base.astro";
+import { getGallery } from "../lib/gallery";
+
+const gallery = getGallery("renderings");
+const renderings = gallery.visible;
+const otherImages = gallery.hidden;
+const allImages = [...renderings, ...otherImages];
+const crop = gallery.crop || {};
+const filename = (src: string) => src.replace('/images/renderings/', '');
+---
+
+<Base title="3D Rendering Portfolio | THROWN">
+  <section class="px-6 pt-24 pb-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="font-aliens-cows text-lg md:text-xl tracking-wide uppercase text-[color:var(--color-cherry)]">Portfolio</div>
+      <h1 class="mt-3 text-5xl md:text-7xl font-brand-script tracking-[0.06em] md:tracking-[0.08em]">Renderings.</h1>
+      <p class="mt-6 text-xl md:text-2xl leading-relaxed max-w-3xl font-aliens-cows">
+        From concept to reality, our renderings show your project at scale with real materials, lighting, and furnishings. Every finish and fixture is sourced and available for your build.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 pb-24">
+    <div class="max-w-6xl mx-auto">
+      <div class="mt-2 grid gap-8 md:grid-cols-2">
+        {renderings.map((src) => {
+          const file = filename(src);
+          const hasCrop = crop[file] && typeof crop[file] === "object";
+          const style = hasCrop
+            ? `width:${crop[file].scale * 100}%;height:${crop[file].scale * 100}%;object-position:${crop[file].x}% ${crop[file].y}%;`
+            : "width:100%;height:100%;object-position:center;";
+          const index = allImages.indexOf(src);
+          return (
+            <div class="group relative overflow-hidden rounded-3xl aspect-[4/3]">
+              <img
+                src={src}
+                alt="3D rendering portfolio"
+                loading="lazy"
+                data-index={index}
+                class="lightbox-trigger absolute object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                style={style}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  {otherImages.length > 0 && (
+    <section class="px-6 pb-24">
+      <div class="max-w-6xl mx-auto">
+        <div class="font-aliens-cows text-lg md:text-xl tracking-wide uppercase text-[color:var(--color-cherry)]">More work</div>
+        <div class="mt-8 grid gap-8 md:grid-cols-2">
+          {otherImages.map((src) => {
+            const file = filename(src);
+            const hasCrop = crop[file] && typeof crop[file] === "object";
+            const style = hasCrop
+              ? `width:${crop[file].scale * 100}%;height:${crop[file].scale * 100}%;object-position:${crop[file].x}% ${crop[file].y}%;`
+              : "width:100%;height:100%;object-position:center;";
+            const index = allImages.indexOf(src);
+            return (
+              <div class="group relative overflow-hidden rounded-3xl aspect-[4/3]">
+                <img
+                  src={src}
+                  alt="Additional project image"
+                  loading="lazy"
+                  data-index={index}
+                  class="lightbox-trigger absolute object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  style={style}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-6">
+    <button id="lightbox-close" class="absolute top-6 right-6 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">Close</button>
+    <button id="lightbox-prev" class="absolute left-6 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">Prev</button>
+    <button id="lightbox-next" class="absolute right-6 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">Next</button>
+    <img id="lightbox-image" class="max-h-[90vh] max-w-[90vw] rounded-3xl object-contain" src="" alt="Expanded rendering" />
+  </div>
+</Base>
+
+<script type="module">
+  const lightbox = document.querySelector('#lightbox');
+  const lightboxImage = document.querySelector('#lightbox-image');
+  const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
+  const images = triggers.map((img) => img.getAttribute('src'));
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImage.src = images[index];
+    lightbox.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightboxImage.src = '';
+    document.body.style.overflow = '';
+  }
+
+  function showIndex(index) {
+    if (index < 0) index = images.length - 1;
+    if (index >= images.length) index = 0;
+    currentIndex = index;
+    lightboxImage.src = images[currentIndex];
+  }
+
+  triggers.forEach((img) => {
+    img.addEventListener('click', (event) => {
+      const index = Number(img.dataset.index);
+      if (!Number.isNaN(index)) openLightbox(index);
+    });
+  });
+
+  document.querySelector('#lightbox-close').addEventListener('click', closeLightbox);
+  document.querySelector('#lightbox-prev').addEventListener('click', () => showIndex(currentIndex - 1));
+  document.querySelector('#lightbox-next').addEventListener('click', () => showIndex(currentIndex + 1));
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (lightbox.classList.contains('hidden')) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft') showIndex(currentIndex - 1);
+    if (event.key === 'ArrowRight') showIndex(currentIndex + 1);
+  });
+</script>

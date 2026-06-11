@@ -1,0 +1,192 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Cart | THROWN" description="Review your selected pieces and continue to checkout.">
+  <section class="px-6 pt-16 pb-8 border-b border-black/10 bg-[linear-gradient(180deg,rgba(245,241,233,0.72),rgba(245,241,233,0.24))]">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-xs tracking-[0.24em] uppercase text-[color:var(--color-cherry)]">Shopping Cart</p>
+      <h1 class="mt-2 text-4xl md:text-6xl font-black tracking-[0.02em] leading-tight">Your selected pieces</h1>
+      <p class="mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-black/80">
+        Review quantities, remove items, and proceed when you are ready.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 py-12 bg-[linear-gradient(175deg,rgba(245,241,233,0.94),rgba(236,225,209,0.78))] min-h-[52vh]">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs tracking-[0.2em] uppercase text-black/65">Items in cart</p>
+          <p id="cartCount" class="mt-1 text-2xl font-black">0</p>
+        </div>
+        <button
+          id="cartClear"
+          type="button"
+          class="px-4 py-2 text-xs tracking-[0.16em] uppercase border border-black/30 hover:bg-black hover:text-white transition-colors"
+        >Clear Cart</button>
+      </div>
+
+      <div class="mt-8 overflow-hidden border border-black/10 bg-white/85">
+        <div id="cartEmpty" class="px-6 py-10 text-base">Your cart is empty. Add Available to ship pieces from Favves to build your order.</div>
+        <div id="cartList" class="hidden divide-y divide-black/10"></div>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-black/20 pt-6">
+        <div>
+          <p class="text-xs tracking-[0.2em] uppercase text-black/65">Subtotal</p>
+          <p id="cartSubtotal" class="text-3xl font-black">$0.00</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/favves"
+            class="inline-flex items-center justify-center px-6 py-3 border border-black/25 text-xs tracking-[0.14em] uppercase hover:bg-black hover:text-white transition-colors"
+          >Keep Shopping</a>
+          <a
+            id="cartCheckoutLink"
+            href="/checkout"
+            class="inline-flex items-center justify-center px-8 py-3 bg-[#3b0f1a] text-white text-xs tracking-[0.18em] uppercase hover:bg-[#2f0b15] transition-colors"
+          >Proceed to Checkout</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="module">
+    const cartCount = document.getElementById("cartCount");
+    const cartList = document.getElementById("cartList");
+    const cartEmpty = document.getElementById("cartEmpty");
+    const cartSubtotal = document.getElementById("cartSubtotal");
+    const cartClear = document.getElementById("cartClear");
+
+    const readCart = () => {
+      try {
+        const raw = localStorage.getItem("thrownCart");
+        const parsed = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(parsed)) return [];
+        return parsed.map((item) => ({
+          title: String(item.title || "Item"),
+          price: String(item.price || "$0"),
+          qty: Number(item.qty || 1),
+          image: String(item.image || ""),
+        }));
+      } catch {
+        return [];
+      }
+    };
+
+    const writeCart = (items) => {
+      localStorage.setItem("thrownCart", JSON.stringify(items));
+    };
+
+    const priceToNumber = (price) => {
+      const numeric = Number(String(price).replace(/[^0-9.]/g, ""));
+      return Number.isFinite(numeric) ? numeric : 0;
+    };
+
+    const formatUsd = (amount) =>
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
+
+    const renderCart = () => {
+      if (!(cartList instanceof HTMLElement) || !(cartEmpty instanceof HTMLElement) || !(cartSubtotal instanceof HTMLElement)) {
+        return;
+      }
+
+      const items = readCart();
+      const count = items.reduce((sum, item) => sum + Math.max(1, item.qty), 0);
+      const subtotal = items.reduce((sum, item) => sum + priceToNumber(item.price) * Math.max(1, item.qty), 0);
+
+      if (cartCount instanceof HTMLElement) {
+        cartCount.textContent = String(count);
+      }
+
+      cartSubtotal.textContent = formatUsd(subtotal);
+
+      if (!items.length) {
+        cartList.innerHTML = "";
+        cartList.classList.add("hidden");
+        cartEmpty.classList.remove("hidden");
+        return;
+      }
+
+      cartEmpty.classList.add("hidden");
+      cartList.classList.remove("hidden");
+      cartList.innerHTML = items
+        .map(
+          (item, index) => `
+          <article class="grid grid-cols-[72px_1fr_auto] gap-4 items-center px-4 py-4 md:px-6">
+            <img src="${item.image || "/images/about/_thumbs"}" alt="${item.title}" class="w-[72px] h-[72px] object-cover border border-black/10 bg-[#f2efe8]" loading="lazy" />
+            <div>
+              <h3 class="font-geliat text-base md:text-lg leading-tight">${item.title}</h3>
+              <p class="mt-1 text-sm text-black/70">${item.price} each</p>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+              <div class="inline-flex items-center border border-black/20">
+                <button type="button" data-cart-decrease="${index}" class="px-3 py-1 text-lg leading-none hover:bg-black/5" aria-label="Decrease quantity">-</button>
+                <span class="px-3 py-1 min-w-8 text-center">${Math.max(1, item.qty)}</span>
+                <button type="button" data-cart-increase="${index}" class="px-3 py-1 text-lg leading-none hover:bg-black/5" aria-label="Increase quantity">+</button>
+              </div>
+              <button type="button" data-cart-remove="${index}" class="text-xs tracking-[0.1em] uppercase text-black/70 hover:text-black">Remove</button>
+            </div>
+          </article>
+        `,
+        )
+        .join("");
+    };
+
+    if (cartList instanceof HTMLElement) {
+      cartList.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const items = readCart();
+        const inc = target.getAttribute("data-cart-increase");
+        const dec = target.getAttribute("data-cart-decrease");
+        const rem = target.getAttribute("data-cart-remove");
+
+        if (inc !== null) {
+          const index = Number(inc);
+          if (items[index]) items[index].qty = Math.max(1, items[index].qty + 1);
+          writeCart(items);
+          renderCart();
+          return;
+        }
+
+        if (dec !== null) {
+          const index = Number(dec);
+          if (items[index]) items[index].qty = Math.max(1, items[index].qty - 1);
+          writeCart(items);
+          renderCart();
+          return;
+        }
+
+        if (rem !== null) {
+          const index = Number(rem);
+          if (Number.isInteger(index) && index >= 0 && index < items.length) {
+            items.splice(index, 1);
+          }
+          writeCart(items);
+          renderCart();
+        }
+      });
+    }
+
+    if (cartClear instanceof HTMLButtonElement) {
+      cartClear.addEventListener("click", () => {
+        localStorage.removeItem("thrownCart");
+        renderCart();
+      });
+    }
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === "thrownCart") {
+        renderCart();
+      }
+    });
+
+    renderCart();
+  </script>
+</Base>

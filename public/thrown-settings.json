@@ -1,0 +1,9 @@
+{
+  "rows": ["TH", "RO", "WN"],
+  "rowGap": "0.75rem",
+  "rowWidths": ["14.2ch", "13.5ch", "13.5ch"],
+  "rowOffsets": ["0px", "0px", "0px"],
+  "lineHeight": "0.78",
+  "letterSpacing": "-0.185em",
+  "rowSpacings": ["-0.185em", "-0.185em", "-0.185em"]
+}

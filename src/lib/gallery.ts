@@ -1,9 +1,9 @@
-import fs from "node:fs";
-import path from "node:path";
+import fs from "fs";
+import path from "path";
 
-export type Category = "commercial" | "residential" | "shop" | "about";
+export type Category = "commercial" | "residential" | "shop" | "about" | "renderings";
 
-export const CATEGORIES: Category[] = ["commercial", "residential", "shop", "about"];
+export const CATEGORIES: Category[] = ["commercial", "residential", "shop", "about", "renderings"];
 
 const IMG_RE = /\.(jpe?g|png|webp|gif)$/i;
 
@@ -18,12 +18,19 @@ function orderFile(category: Category) {
 function listOnDisk(category: Category): string[] {
   const dir = publicDir(category);
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).filter((f) => IMG_RE.test(f)).sort();
+  return fs.readdirSync(dir).filter((f: string) => IMG_RE.test(f)).sort();
+}
+
+interface CropRect {
+  x: number;
+  y: number;
+  scale: number;
 }
 
 interface OrderFile {
   order: string[];
   hidden?: string[];
+  crop?: Record<string, CropRect>;
 }
 
 function loadOrder(category: Category): OrderFile {
@@ -31,9 +38,24 @@ function loadOrder(category: Category): OrderFile {
   if (!fs.existsSync(f)) return { order: [], hidden: [] };
   try {
     const raw = JSON.parse(fs.readFileSync(f, "utf-8"));
+    const cropRaw = raw && typeof raw.crop === "object" && raw.crop !== null && !Array.isArray(raw.crop)
+      ? raw.crop
+      : {};
+    const crop: Record<string, CropRect> = {};
+    for (const [file, value] of Object.entries(cropRaw)) {
+      if (value && typeof value === "object") {
+        const x = Number((value as any).x);
+        const y = Number((value as any).y);
+        const scale = Number((value as any).scale);
+        if (!Number.isNaN(x) && !Number.isNaN(y) && !Number.isNaN(scale)) {
+          crop[file] = { x, y, scale };
+        }
+      }
+    }
     return {
       order: Array.isArray(raw.order) ? raw.order : [],
       hidden: Array.isArray(raw.hidden) ? raw.hidden : [],
+      crop,
     };
   } catch {
     return { order: [], hidden: [] };
@@ -44,11 +66,12 @@ export interface GalleryState {
   visible: string[]; // ordered list of /images/{cat}/{file}
   hidden: string[];
   files: string[]; // all files on disk (filename only)
+  crop: Record<string, CropRect | undefined>;
 }
 
 export function getGallery(category: Category): GalleryState {
   const onDisk = listOnDisk(category);
-  const { order, hidden = [] } = loadOrder(category);
+  const { order, hidden = [], crop = {} } = loadOrder(category);
   const onDiskSet = new Set(onDisk);
   const hiddenSet = new Set(hidden.filter((h) => onDiskSet.has(h)));
 
@@ -64,17 +87,29 @@ export function getGallery(category: Category): GalleryState {
   const hiddenList = ordered
     .filter((f) => hiddenSet.has(f))
     .map((f) => `/images/${category}/${f}`);
+  const cropMap = Object.fromEntries(onDisk.map((file) => [file, crop[file]]));
 
-  return { visible, hidden: hiddenList, files: onDisk };
+  return { visible, hidden: hiddenList, files: onDisk, crop: cropMap };
 }
 
-export function saveOrder(category: Category, order: string[], hidden: string[]) {
+export function saveOrder(category: Category, order: string[], hidden: string[], crop: Record<string, CropRect> = {}) {
   const dir = publicDir(category);
   if (!fs.existsSync(dir)) throw new Error(`No such category: ${category}`);
   const onDisk = new Set(listOnDisk(category));
   const cleanOrder = order.filter((f) => onDisk.has(f));
   const cleanHidden = hidden.filter((f) => onDisk.has(f));
-  const payload = { order: cleanOrder, hidden: cleanHidden };
+  const cleanCrop: Record<string, CropRect> = {};
+  for (const [file, value] of Object.entries(crop)) {
+    if (!onDisk.has(file)) continue;
+    if (!value || typeof value !== 'object') continue;
+    const x = Number((value as any).x);
+    const y = Number((value as any).y);
+    const scale = Number((value as any).scale);
+    if (Number.isNaN(x) || Number.isNaN(y) || Number.isNaN(scale)) continue;
+    if (scale === 1 && x === 50 && y === 50) continue;
+    cleanCrop[file] = { x, y, scale };
+  }
+  const payload = { order: cleanOrder, hidden: cleanHidden, crop: cleanCrop };
   fs.writeFileSync(orderFile(category), JSON.stringify(payload, null, 2), "utf-8");
   return payload;
 }

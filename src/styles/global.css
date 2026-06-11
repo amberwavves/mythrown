@@ -1,13 +1,56 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Milova Violatte Regular";
+  src: url("/fonts/milova-violatte/milovaviolatte-regular-webfont.woff2") format("woff2"),
+       url("/fonts/milova-violatte/milovaviolatte-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Milova Violatte Script";
+  src: url("/fonts/milova-violatte/milovaviolatte-script-webfont.woff2") format("woff2"),
+       url("/fonts/milova-violatte/milovaviolatte-script-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aliens And Cows";
+  src: url("/fonts/aliens-and-cows/aliens-and-cows-trial.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geliat";
+  src: url("/fonts/geliat/Geliat-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geliat";
+  src: url("/fonts/geliat/Geliat-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-bg: #faf8f5;
   --color-ink: #111111;
   --color-muted: #6b6b66;
   --color-cherry: #862c23;
   --color-cherry-soft: #a8453c;
-  --font-display: "Inter", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-display: "Milova Violatte Regular", "Times New Roman", serif;
+  --font-body: "Milova Violatte Regular", "Times New Roman", serif;
+  --font-script: "Milova Violatte Script", "Apple Chancery", "Segoe Script", cursive;
 }
 
 html,
@@ -21,4 +64,95 @@ body {
 ::selection {
   background: var(--color-cherry);
   color: var(--color-bg);
+}
+
+/* THROWN hero stack styling */
+.thrown-stack {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  gap: var(--thrown-row-gap, 0.75rem);
+  text-transform: uppercase;
+  font-family: 'Arial Black', 'Helvetica Neue', 'Impact', sans-serif;
+  font-weight: 900;
+  line-height: var(--thrown-line-height, 0.82);
+  letter-spacing: var(--thrown-letter-spacing, -0.18em);
+}
+.thrown-stack .thrown-row {
+  width: var(--thrown-row-width, 12.3ch);
+  max-width: min(28rem, 100%);
+  margin: 0 auto;
+  text-align: center;
+  transform: translateX(var(--thrown-row-offset, 0));
+}
+.thrown-stack .thrown-row-1 {
+  width: var(--thrown-row-1-width, var(--thrown-row-width, 12.3ch));
+  letter-spacing: var(--thrown-row-1-spacing, var(--thrown-letter-spacing, -0.18em));
+}
+.thrown-stack .thrown-row-2 {
+  width: var(--thrown-row-2-width, var(--thrown-row-width, 12.3ch));
+  letter-spacing: var(--thrown-row-2-spacing, var(--thrown-letter-spacing, -0.18em));
+}
+.thrown-stack .thrown-row-3 {
+  width: var(--thrown-row-3-width, var(--thrown-row-width, 12.3ch));
+  letter-spacing: var(--thrown-row-3-spacing, var(--thrown-letter-spacing, -0.18em));
+}
+
+.home-hero-thrown {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.home-hero-subtext-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.font-brand-display {
+  font-family: var(--font-display);
+}
+
+.font-brand-script {
+  font-family: var(--font-script);
+}
+
+.font-aliens-cows {
+  font-family: "Geliat", "Inter", system-ui, sans-serif;
+  font-weight: 200;
+  text-transform: none;
+}
+
+.font-geliat {
+  font-family: "Geliat", "Inter", system-ui, sans-serif;
+  font-weight: 200;
+}
+
+.font-ui-bold {
+  font-family: "Arial Black", "Helvetica Neue", "Inter", system-ui, sans-serif;
+  font-weight: 900;
+}
+
+/* Services page color blocks inspired by Studio Ashby warm neutrals */
+.service-card {
+  padding: clamp(1.1rem, 2.4vw, 1.75rem);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #633b2f;
+  color: #ffffff;
+}
+
+.service-card-1 { background: #633b2f; }
+.service-card-2 { background: #893521; }
+.service-card-3 { background: #645e26; }
+.service-card-4 { background: #45519f; }
+
+.service-card-feature {
+  background: #7c5c39;
+}
+
+.service-card h2,
+.service-card p {
+  color: #ffffff;
 }

@@ -11,6 +11,7 @@ import { CATEGORIES } from "../../lib/gallery";
       <p class="mt-4 text-sm text-[color:var(--color-muted)] max-w-2xl">
         Drag thumbnails to reorder. Click a thumbnail to toggle hide / show.
         Click <strong>Save</strong> to write <code>public/images/&lt;category&gt;/order.json</code>.
+        Use the crop button to mark select images for manual crop handling.
         New files dropped into the folder will appear at the end automatically.
       </p>
 
@@ -27,6 +28,89 @@ import { CATEGORIES } from "../../lib/gallery";
         <button id="save" class="px-4 py-2 text-xs tracking-widest uppercase bg-black text-white hover:bg-neutral-800 transition-colors">Save</button>
       </div>
 
+      <div class="mt-12 rounded-3xl border border-black/10 bg-white/90 p-6 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">THROWN hero settings</div>
+            <p class="mt-2 text-sm text-[color:var(--color-muted)] max-w-2xl">Edit the shop hero letters, widths, spacing, and line height, then save to persist to <code>/public/thrown-settings.json</code>.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button id="save-settings" class="px-4 py-2 text-xs tracking-widest uppercase bg-black text-white hover:bg-neutral-800 transition-colors">Save hero settings</button>
+            <button id="reload-settings" class="px-4 py-2 text-xs tracking-widest uppercase border border-black/20 hover:bg-black/5 transition-colors">Reload hero settings</button>
+          </div>
+        </div>
+        <div class="mt-6 rounded-3xl border border-black/10 bg-black p-6 text-white">
+          <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Preview</div>
+          <div id="thrown-preview" class="thrown-stack mt-5 text-[6vw] leading-none" style="--thrown-row-gap: 0.75rem; --thrown-row-width: 13.5ch; --thrown-row-1-width: 14.2ch; --thrown-row-2-width: 13.5ch; --thrown-row-3-width: 13.5ch; --thrown-line-height: 0.78; --thrown-letter-spacing: -0.185em;">
+            <span class="thrown-row thrown-row-1">TH</span>
+            <span class="thrown-row thrown-row-2">RO</span>
+            <span class="thrown-row thrown-row-3">WN</span>
+          </div>
+        </div>
+        <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 1 text
+            <input id="thrown-row-1" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 2 text
+            <input id="thrown-row-2" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 3 text
+            <input id="thrown-row-3" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row gap
+            <input id="thrown-row-gap" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 1 width
+            <input id="thrown-row-1-width" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 2 width
+            <input id="thrown-row-2-width" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 3 width
+            <input id="thrown-row-3-width" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Global letter spacing
+            <input id="thrown-letter-spacing" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Line height
+            <input id="thrown-line-height" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 1 spacing
+            <input id="thrown-row-1-spacing" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 2 spacing
+            <input id="thrown-row-2-spacing" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 3 spacing
+            <input id="thrown-row-3-spacing" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 1 offset
+            <input id="thrown-row-1-offset" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 2 offset
+            <input id="thrown-row-2-offset" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+          <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+            Row 3 offset
+            <input id="thrown-row-3-offset" type="text" class="mt-2 w-full rounded-xl border border-black/10 px-3 py-2 text-sm" />
+          </label>
+        </div>
+      </div>
+
       <h2 class="mt-10 text-xs tracking-widest uppercase text-[color:var(--color-muted)]">Visible · drag to reorder · click to hide</h2>
       <div id="visible" class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"></div>
 
@@ -34,6 +118,39 @@ import { CATEGORIES } from "../../lib/gallery";
       <div id="hidden" class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 opacity-60"></div>
     </div>
   </section>
+
+  <div id="crop-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-6">
+    <div class="relative w-full max-w-4xl rounded-3xl bg-white p-8 shadow-2xl">
+      <button id="crop-modal-close" class="absolute right-6 top-6 rounded-full border border-black/10 bg-black/10 px-4 py-2 text-xs uppercase tracking-widest text-black hover:bg-black/5">Close</button>
+      <h2 class="text-xl font-bold">Crop image</h2>
+      <p id="crop-file-name" class="mt-2 text-sm text-[color:var(--color-muted)]"></p>
+      <div class="mt-6">
+        <div class="relative mx-auto h-80 overflow-hidden rounded-3xl border border-black/10 bg-black">
+          <img id="crop-preview-image" class="absolute left-1/2 top-1/2 min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover" alt="Crop preview" />
+          <div class="pointer-events-none absolute inset-0 border border-white/40"></div>
+        </div>
+      </div>
+      <div class="mt-6 grid gap-4 md:grid-cols-3">
+        <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+          Zoom
+          <input id="crop-zoom" type="range" min="1" max="2.5" step="0.01" class="mt-2 w-full" />
+        </label>
+        <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+          Horizontal
+          <input id="crop-x" type="range" min="0" max="100" step="1" class="mt-2 w-full" />
+        </label>
+        <label class="block text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+          Vertical
+          <input id="crop-y" type="range" min="0" max="100" step="1" class="mt-2 w-full" />
+        </label>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <button id="crop-modal-save" class="px-5 py-3 rounded-full bg-black text-white text-xs uppercase tracking-widest">Save crop</button>
+        <button id="crop-modal-reset" class="px-5 py-3 rounded-full border border-black text-xs uppercase tracking-widest">Reset crop</button>
+        <button id="crop-modal-cancel" class="px-5 py-3 rounded-full border border-black/10 bg-black/5 text-xs uppercase tracking-widest">Cancel</button>
+      </div>
+    </div>
+  </div>
 </Base>
 
 <style>
@@ -57,6 +174,21 @@ import { CATEGORIES } from "../../lib/gallery";
     background: rgba(0,0,0,0.7); color: white;
     font-size: 10px; padding: 2px 6px; letter-spacing: 0.1em;
   }
+  .tile .crop-btn,
+  .tile .hide-btn {
+    position: absolute;
+    border: 1px solid rgba(255,255,255,0.9);
+    background: rgba(0,0,0,0.65);
+    color: white;
+    font-size: 10px;
+    padding: 4px 6px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .tile .crop-btn { right: 4px; bottom: 4px; }
+  .tile .hide-btn { left: 4px; bottom: 4px; }
+  .tile.cropped { box-shadow: inset 0 0 0 2px rgba(184, 0, 78, 0.9); }
   .tile .name {
     position: absolute; bottom: 0; left: 0; right: 0;
     background: rgba(0,0,0,0.6); color: white;
@@ -67,13 +199,179 @@ import { CATEGORIES } from "../../lib/gallery";
 </style>
 
 <script>
+  const CATEGORIES = ["commercial", "residential", "shop", "about", "renderings"];
   let category = "commercial";
   let visible = [];
   let hidden = [];
+  let crop = {};
+  let cropEditorFile = null;
+  let cropEditorState = { x: 50, y: 50, scale: 1 };
   let dirty = false;
 
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  const DEFAULT_CROP = { x: 50, y: 50, scale: 1 };
+  const DEFAULT_THROWN_SETTINGS = {
+    rows: ["TH", "RO", "WN"],
+    rowGap: "0.75rem",
+    rowWidths: ["14.2ch", "13.5ch", "13.5ch"],
+    rowOffsets: ["0px", "0px", "0px"],
+    lineHeight: "0.78",
+    letterSpacing: "-0.185em",
+    rowSpacings: ["-0.185em", "-0.185em", "-0.185em"],
+  };
+
+  function deriveCropState(file) {
+    const value = crop[file];
+    if (value && typeof value === "object") {
+      return {
+        x: Number(value.x) || 50,
+        y: Number(value.y) || 50,
+        scale: Number(value.scale) || 1,
+      };
+    }
+    return { ...DEFAULT_CROP };
+  }
+
+  function setThrownInputs(data) {
+    $("#thrown-row-1").value = data.rows?.[0] ?? DEFAULT_THROWN_SETTINGS.rows[0];
+    $("#thrown-row-2").value = data.rows?.[1] ?? DEFAULT_THROWN_SETTINGS.rows[1];
+    $("#thrown-row-3").value = data.rows?.[2] ?? DEFAULT_THROWN_SETTINGS.rows[2];
+    $("#thrown-row-gap").value = data.rowGap ?? DEFAULT_THROWN_SETTINGS.rowGap;
+    $("#thrown-row-1-width").value = data.rowWidths?.[0] ?? DEFAULT_THROWN_SETTINGS.rowWidths[0];
+    $("#thrown-row-2-width").value = data.rowWidths?.[1] ?? DEFAULT_THROWN_SETTINGS.rowWidths[1];
+    $("#thrown-row-3-width").value = data.rowWidths?.[2] ?? DEFAULT_THROWN_SETTINGS.rowWidths[2];
+    $("#thrown-row-1-offset").value = data.rowOffsets?.[0] ?? DEFAULT_THROWN_SETTINGS.rowOffsets[0];
+    $("#thrown-row-2-offset").value = data.rowOffsets?.[1] ?? DEFAULT_THROWN_SETTINGS.rowOffsets[1];
+    $("#thrown-row-3-offset").value = data.rowOffsets?.[2] ?? DEFAULT_THROWN_SETTINGS.rowOffsets[2];
+    $("#thrown-letter-spacing").value = data.letterSpacing ?? DEFAULT_THROWN_SETTINGS.letterSpacing;
+    $("#thrown-line-height").value = data.lineHeight ?? DEFAULT_THROWN_SETTINGS.lineHeight;
+    $("#thrown-row-1-spacing").value = data.rowSpacings?.[0] ?? DEFAULT_THROWN_SETTINGS.rowSpacings[0];
+    $("#thrown-row-2-spacing").value = data.rowSpacings?.[1] ?? DEFAULT_THROWN_SETTINGS.rowSpacings[1];
+    $("#thrown-row-3-spacing").value = data.rowSpacings?.[2] ?? DEFAULT_THROWN_SETTINGS.rowSpacings[2];
+    updateThrownPreview(data);
+  }
+
+  function getThrownSettings() {
+    return {
+      rows: [
+        $("#thrown-row-1").value.trim() || DEFAULT_THROWN_SETTINGS.rows[0],
+        $("#thrown-row-2").value.trim() || DEFAULT_THROWN_SETTINGS.rows[1],
+        $("#thrown-row-3").value.trim() || DEFAULT_THROWN_SETTINGS.rows[2],
+      ],
+      rowGap: $("#thrown-row-gap").value.trim() || DEFAULT_THROWN_SETTINGS.rowGap,
+      rowWidths: [
+        $("#thrown-row-1-width").value.trim() || DEFAULT_THROWN_SETTINGS.rowWidths[0],
+        $("#thrown-row-2-width").value.trim() || DEFAULT_THROWN_SETTINGS.rowWidths[1],
+        $("#thrown-row-3-width").value.trim() || DEFAULT_THROWN_SETTINGS.rowWidths[2],
+      ],
+      rowOffsets: [
+        $("#thrown-row-1-offset").value.trim() || DEFAULT_THROWN_SETTINGS.rowOffsets[0],
+        $("#thrown-row-2-offset").value.trim() || DEFAULT_THROWN_SETTINGS.rowOffsets[1],
+        $("#thrown-row-3-offset").value.trim() || DEFAULT_THROWN_SETTINGS.rowOffsets[2],
+      ],
+      letterSpacing: $("#thrown-letter-spacing").value.trim() || DEFAULT_THROWN_SETTINGS.letterSpacing,
+      lineHeight: $("#thrown-line-height").value.trim() || DEFAULT_THROWN_SETTINGS.lineHeight,
+      rowSpacings: [
+        $("#thrown-row-1-spacing").value.trim() || DEFAULT_THROWN_SETTINGS.rowSpacings[0],
+        $("#thrown-row-2-spacing").value.trim() || DEFAULT_THROWN_SETTINGS.rowSpacings[1],
+        $("#thrown-row-3-spacing").value.trim() || DEFAULT_THROWN_SETTINGS.rowSpacings[2],
+      ],
+    };
+  }
+
+  function updateThrownPreview(data = getThrownSettings()) {
+    const preview = $("#thrown-preview");
+    if (!preview) return;
+    preview.style.setProperty("--thrown-row-gap", data.rowGap);
+    preview.style.setProperty("--thrown-row-1-width", data.rowWidths[0]);
+    preview.style.setProperty("--thrown-row-2-width", data.rowWidths[1]);
+    preview.style.setProperty("--thrown-row-3-width", data.rowWidths[2]);
+    preview.style.setProperty("--thrown-row-1-offset", data.rowOffsets[0]);
+    preview.style.setProperty("--thrown-row-2-offset", data.rowOffsets[1]);
+    preview.style.setProperty("--thrown-row-3-offset", data.rowOffsets[2]);
+    preview.style.setProperty("--thrown-line-height", data.lineHeight);
+    preview.style.setProperty("--thrown-letter-spacing", data.letterSpacing);
+    preview.style.setProperty("--thrown-row-1-spacing", data.rowSpacings[0]);
+    preview.style.setProperty("--thrown-row-2-spacing", data.rowSpacings[1]);
+    preview.style.setProperty("--thrown-row-3-spacing", data.rowSpacings[2]);
+    const rows = preview.querySelectorAll(".thrown-row");
+    if (rows.length >= 3) {
+      rows[0].textContent = data.rows[0];
+      rows[1].textContent = data.rows[1];
+      rows[2].textContent = data.rows[2];
+    }
+  }
+
+  async function loadThrownSettings() {
+    try {
+      const res = await fetch("/api/thrown-settings");
+      if (!res.ok) throw new Error("failed to load thrown settings");
+      const data = await res.json();
+      setThrownInputs(data);
+      return data;
+    } catch (err) {
+      setStatus("could not load hero settings");
+      setThrownInputs(DEFAULT_THROWN_SETTINGS);
+      return DEFAULT_THROWN_SETTINGS;
+    }
+  }
+
+  async function saveThrownSettings() {
+    const payload = getThrownSettings();
+    const res = await fetch("/api/thrown-settings", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      const result = await res.json();
+      setStatus("hero settings saved");
+      return result.saved;
+    }
+    const err = await res.text();
+    setStatus("hero settings save failed: " + err);
+    throw new Error(err);
+  }
+
+  function attachThrownInputListeners() {
+    const inputs = [
+      "#thrown-row-1",
+      "#thrown-row-2",
+      "#thrown-row-3",
+      "#thrown-row-gap",
+      "#thrown-row-1-width",
+      "#thrown-row-2-width",
+      "#thrown-row-3-width",
+      "#thrown-row-1-offset",
+      "#thrown-row-2-offset",
+      "#thrown-row-3-offset",
+      "#thrown-letter-spacing",
+      "#thrown-line-height",
+      "#thrown-row-1-spacing",
+      "#thrown-row-2-spacing",
+      "#thrown-row-3-spacing",
+    ];
+    inputs.forEach((sel) => {
+      const input = $(sel);
+      if (input) {
+        input.addEventListener("input", () => {
+          markDirty();
+          updateThrownPreview();
+        });
+      }
+    });
+  }
+
+
+  function cropIsActive(file) {
+    const value = crop[file];
+    return (
+      value && typeof value === "object" &&
+      (value.scale !== 1 || value.x !== 50 || value.y !== 50)
+    );
+  }
 
   function setStatus(msg) {
     const s = $("#status");
@@ -87,19 +385,31 @@ import { CATEGORIES } from "../../lib/gallery";
 
   async function load(cat) {
     category = cat;
-    const res = await fetch(`/api/arrange?category=${cat}`);
-    const data = await res.json();
-    visible = data.visible || [];
-    hidden = data.hidden || [];
-    dirty = false;
-    setStatus(`${visible.length} visible · ${hidden.length} hidden`);
-    render();
-    $$(".tab").forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+    try {
+      const res = await fetch(`/api/arrange?category=${cat}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      visible = data.visible || [];
+      hidden = data.hidden || [];
+      crop = data.crop || {};
+      dirty = false;
+      setStatus(`${visible.length} visible · ${hidden.length} hidden`);
+      render();
+      $$(".tab").forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      setStatus(`load failed: ${message}`);
+      visible = [];
+      hidden = [];
+      crop = {};
+      render();
+    }
   }
 
   function tile(file, idx, isHidden) {
     const el = document.createElement("div");
-    el.className = "tile";
+    const isCropped = cropIsActive(file);
+    el.className = `tile${isCropped ? " cropped" : ""}`;
     el.draggable = !isHidden;
     el.dataset.file = file;
     const base = file.replace(/\.[^.]+$/, "");
@@ -111,9 +421,27 @@ import { CATEGORIES } from "../../lib/gallery";
       ${isHidden ? "" : `<span class="badge">${idx + 1}</span>`}
       <span class="name">${file}</span>
     `;
+    const cropBtn = document.createElement("button");
+    cropBtn.type = "button";
+    cropBtn.className = "crop-btn";
+    cropBtn.textContent = isCropped ? "Edit Crop" : "Crop";
+    cropBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openCropModal(file);
+    });
+    const hideBtn = document.createElement("button");
+    hideBtn.type = "button";
+    hideBtn.className = "hide-btn";
+    hideBtn.textContent = isHidden ? "Restore" : "Hide";
+    hideBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleHide(file);
+    });
+    el.appendChild(hideBtn);
+    el.appendChild(cropBtn);
     el.addEventListener("click", (e) => {
       if (el.classList.contains("dragging")) return;
-      toggleHide(file);
+      openCropModal(file);
       e.preventDefault();
     });
     if (!isHidden) {
@@ -165,6 +493,64 @@ import { CATEGORIES } from "../../lib/gallery";
     render();
   }
 
+  function openCropModal(file) {
+    cropEditorFile = file;
+    cropEditorState = deriveCropState(file);
+    const modal = $("#crop-modal");
+    const image = $("#crop-preview-image");
+    const zoom = $("#crop-zoom");
+    const xInput = $("#crop-x");
+    const yInput = $("#crop-y");
+    const title = $("#crop-file-name");
+    if (modal && image && zoom && xInput && yInput && title) {
+      title.textContent = file;
+      image.src = `/images/${category}/${file}`;
+      zoom.value = String(cropEditorState.scale);
+      xInput.value = String(cropEditorState.x);
+      yInput.value = String(cropEditorState.y);
+      updateCropPreview();
+      modal.classList.remove("hidden");
+    }
+  }
+
+  function closeCropModal() {
+    const modal = $("#crop-modal");
+    if (modal) modal.classList.add("hidden");
+    cropEditorFile = null;
+  }
+
+  function updateCropPreview() {
+    const image = $("#crop-preview-image");
+    if (!image) return;
+    image.style.width = `${cropEditorState.scale * 100}%`;
+    image.style.height = `${cropEditorState.scale * 100}%`;
+    image.style.objectPosition = `${cropEditorState.x}% ${cropEditorState.y}%`;
+  }
+
+  function saveCrop() {
+    if (!cropEditorFile) return;
+    if (
+      cropEditorState.scale === 1 &&
+      cropEditorState.x === 50 &&
+      cropEditorState.y === 50
+    ) {
+      delete crop[cropEditorFile];
+    } else {
+      crop[cropEditorFile] = { ...cropEditorState };
+    }
+    markDirty();
+    closeCropModal();
+    render();
+  }
+
+  function resetCrop() {
+    if (!cropEditorFile) return;
+    delete crop[cropEditorFile];
+    cropEditorState = { ...DEFAULT_CROP };
+    updateCropPreview();
+    render();
+  }
+
   function render() {
     const v = $("#visible");
     const h = $("#hidden");
@@ -180,7 +566,7 @@ import { CATEGORIES } from "../../lib/gallery";
     const res = await fetch("/api/arrange", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ category, order: visible.concat(hidden), hidden }),
+      body: JSON.stringify({ category, order: visible.concat(hidden), hidden, crop }),
     });
     if (res.ok) {
       dirty = false;
@@ -199,15 +585,59 @@ import { CATEGORIES } from "../../lib/gallery";
     }));
     const saveBtn = $("#save");
     if (saveBtn) saveBtn.addEventListener("click", save);
+    const saveSettingsBtn = $("#save-settings");
+    if (saveSettingsBtn) saveSettingsBtn.addEventListener("click", async () => {
+      try {
+        await saveThrownSettings();
+        dirty = false;
+      } catch (err) {
+        // error state already handled inside saveThrownSettings
+      }
+    });
+    const reloadSettingsBtn = $("#reload-settings");
+    if (reloadSettingsBtn) reloadSettingsBtn.addEventListener("click", loadThrownSettings);
     const resetBtn = $("#reset");
     if (resetBtn) resetBtn.addEventListener("click", () => {
       if (dirty && !confirm("Discard unsaved changes?")) return;
       load(category);
     });
+    attachThrownInputListeners();
+    const closeBtn = $("#crop-modal-close");
+    const cancelBtn = $("#crop-modal-cancel");
+    const saveCropBtn = $("#crop-modal-save");
+    const resetCropBtn = $("#crop-modal-reset");
+    const zoomInput = $("#crop-zoom");
+    const xInput = $("#crop-x");
+    const yInput = $("#crop-y");
+
+    if (closeBtn) closeBtn.addEventListener("click", closeCropModal);
+    if (cancelBtn) cancelBtn.addEventListener("click", closeCropModal);
+    if (saveCropBtn) saveCropBtn.addEventListener("click", saveCrop);
+    if (resetCropBtn) resetCropBtn.addEventListener("click", resetCrop);
+    if (zoomInput) zoomInput.addEventListener("input", (e) => {
+      cropEditorState.scale = Number(e.target.value) || 1;
+      updateCropPreview();
+    });
+    if (xInput) xInput.addEventListener("input", (e) => {
+      cropEditorState.x = Number(e.target.value) || 50;
+      updateCropPreview();
+    });
+    if (yInput) yInput.addEventListener("input", (e) => {
+      cropEditorState.y = Number(e.target.value) || 50;
+      updateCropPreview();
+    });
+
     window.addEventListener("beforeunload", (e) => {
       if (dirty) { e.preventDefault(); e.returnValue = ""; }
     });
-    load("commercial");
+    load(getCategoryFromUrl());
+    loadThrownSettings();
+  }
+
+  function getCategoryFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category");
+    return category && CATEGORIES.includes(category) ? category : "commercial";
   }
 
   if (document.readyState === "loading") {

@@ -3,25 +3,439 @@ import Base from "../layouts/Base.astro";
 import StatueBand from "../components/StatueBand.astro";
 
 const inStore = [
-  { name: "Travertine Side Table", note: "1 of 1", url: "/contact" },
-  { name: "Cast Brass Sconce", note: "Limited", url: "/contact" },
-  { name: "Earth Pigment Print", note: "Framed", url: "/contact" },
+  {
+    name: "Citrus + Co Garnish Blends",
+    note: "",
+    image: "https://cdn.faire.com/fastly/b910c327b8db558018cedba8d36f0da128b1fa6083485765941ff06cf290a566.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=1440&width=1440",
+    gallery: [
+      "https://cdn.faire.com/fastly/b910c327b8db558018cedba8d36f0da128b1fa6083485765941ff06cf290a566.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=1440&width=1440",
+      "https://cdn.faire.com/fastly/cbc0e7e4ee4888156d3a593978004f1cce55783f5d4abaf7fda85a86936c80cd.jpeg?dpr=2&fit=crop&format=jpg&height=320&width=320",
+      "https://cdn.faire.com/fastly/8a2d8a295102b3467168e35fdea0c0209da3b37fe2bd0c5777141418707512a0.jpeg?dpr=2&fit=crop&format=jpg&height=320&width=320",
+      "https://cdn.faire.com/fastly/3e922bb61f95d9835925beca3b732e56ed43fb06e4b2ce6592e67fa2a7e3f0aa.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=1440&width=1440",
+      "https://cdn.faire.com/fastly/407ff6d045d825de1b2f16901a35d0d3ebef93b30684f1628cde222b7d050065.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=960&width=720",
+      "https://cdn.faire.com/fastly/c00341cb74eee5f4d67955c65718e6601d3b034ebc59b38fa605d27b10f9a5a7.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=960&width=720",
+      "https://cdn.faire.com/fastly/36aead3d09d72d8188699dc448cc84226388b6fc65f1d1bfe44d61a366f04b46.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=960&width=720",
+      "https://cdn.faire.com/fastly/a7cd161942463a50d0c5a2a07b598b7c63f475e077df86fcc7821cf15a0daeee.png?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=960&width=720",
+    ],
+    galleryPositions: ["50% 50%", "50% 70%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: [
+      "Assorted Edible Flower Blends (Small 25g)",
+      "Dehydrated Organic Strawberries + Floral Blend (Small 25g)",
+      "Luxury Dehydrated Kiwi Garnish with Edible Flowers (100g)",
+      "Luxury Dehydrated Orange Garnish with Edible Flowers (100g)",
+      "Luxury Dehydrated Pineapple Garnish with Edible Flowers (Small 25g)",
+    ],
+    description: "Seasonal garnish bundles with floral accents for cocktails, mocktails, and hosting moments.",
+    price: "From $12",
+    brandValues: ["Eco-friendly", "Not on Amazon", "Handmade", "Women owned"],
+  },
+  {
+    name: "Blomb Fragrance",
+    note: "",
+    image: "https://cdn.faire.com/fastly/b31022d26714f47125ef68242afdd74669f662c5af5e206e205cca219f11a08f.jpeg?format=jpg&precrop=1770%2C1770%2Cx94%2Cy182%2Csafe&width=720",
+    gallery: [
+      "https://cdn.faire.com/fastly/b31022d26714f47125ef68242afdd74669f662c5af5e206e205cca219f11a08f.jpeg?format=jpg&precrop=1770%2C1770%2Cx94%2Cy182%2Csafe&width=720",
+      "https://cdn.faire.com/fastly/4cd8cd4acb9aed60324f7932abf1bf611684c6a21f2b7a2f83802fb2b8cc019a.jpeg?format=jpg&precrop=1648%2C1648%2Cx144%2Cy311%2Csafe&width=720",
+      "https://cdn.faire.com/fastly/8290e0489cb11451ada4f3ac2e92f5d79ee6c53379d33a22fbb2fa6b6d242f6a.jpeg?format=jpg&precrop=1797%2C1797%2Cx107%2Cy160%2Csafe&width=720",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%"],
+    details: [
+      "Blomb No. 23 50ml Eau de Parfum",
+      "Blomb No. 11 50ml Eau de Parfum",
+      "Blomb No. 15 50ml Eau de Parfum",
+    ],
+    description: "Blomb is a fragrance collection-bold, fun, and inclusive. Our clean, long-lasting scents are eau de parfum strength and crafted with natural essential oils for feel-good, aromatherapeutic vibes. Small-batch filled and designed for self-expression, Blomb makes scents for everyone.",
+    price: "$48",
+    brandValues: ["Women owned", "Small batch", "Clean fragrance", "Inclusive brand"],
+  },
+  {
+    name: "Summer Bags",
+    note: "",
+    image: "https://cdn.faire.com/fastly/83a36e19cc40e191567bf236c3101aebdd59e5f455e0be86b36962494c8dfab9.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+    gallery: [
+      "https://cdn.faire.com/fastly/83a36e19cc40e191567bf236c3101aebdd59e5f455e0be86b36962494c8dfab9.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+      "https://cdn.faire.com/fastly/e6bf63ccd7e89a56b5f2d44476af3c1f4fe22a8a839925e5aa2fcce5a4e220ea.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+      "https://cdn.faire.com/fastly/eee44d8680f9ce935b345539b3d30dc6b2af7067fafb7104e87a9faca34d8a57.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+      "https://cdn.faire.com/fastly/dda8cbe9e19300f8c18cf768f02653fe312621867e15fb3e3a806dd96b9f02d6.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+      "https://cdn.faire.com/fastly/6c68181a42eba64cdfbcd76c0129eb742c454225d434bee68813fc46d25edb85.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+      "https://cdn.faire.com/fastly/40e441e69c0d041a1bea80736787c129b0f51da52ba3ee76a275d6eb3ab411fd.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+      "https://cdn.faire.com/fastly/acdaac1e22644043f5db3a994b09dc64648db940bb68b7d9ad04a0da7f6352d1.jpeg?bg-color=FFFFFF&dpr=1&fit=crop&format=jpg&height=720&width=720",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: [
+      "Color Block Handmade Wooden Bead Bag",
+      "Casual Fringe Handmade Wooden Bead Bag",
+      "Round Wooden Bead Shoulder Bag",
+      "Resin Ring Handle Ruched Cloud Tote Purse",
+      "Fashion Rhinestone Handwoven Seashell Raffia Handbag",
+      "Colorful Flower Sequin Embroidery Beach Tote Bag",
+      "Wooden Bead Woven Handbags",
+    ],
+    description: "Summer bags ready for pairing with your fav fit, totally vacay ready.",
+    price: "From $30",
+    brandValues: ["Handmade", "Statement pieces", "Boutique", "Small batch"],
+  },
 ];
 
 const order = [
-  { name: "Linen Floor Lamp", note: "Made to Order", url: "#" },
-  { name: "Hand-Loomed Throw", note: "Ships in 2–3 wks", url: "#" },
-  { name: "Vintage Bouclé Chair", note: "Trade Account", url: "#" },
+  {
+    name: "Squiggle Wall Mirror - Biologic Print",
+    note: "",
+    url: "https://tovfurniture.com/products/charlene-squiggle-wall-mirror?variant=52380750348575",
+    image: "https://tovfurniture.com/cdn/shop/files/TOV-C18949-Main.jpg?v=1776705708&width=1946",
+    gallery: [
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18949-Main.jpg?v=1776705708&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18949-2.jpg?v=1776705708&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18949.jpg?v=1778260150&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18949-3.jpg?v=1776705708&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18949-4.jpg?v=1776705708&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18949-D.jpg?v=1776705708&width=1946",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["39\" x 75\" oversized profile", "Pattern: Biologic Print", "SKU: TOV-C18949"],
+    description: "A sculptural oversized wall mirror in the Biologic Print pattern for a bold graphic statement.",
+    price: "$699.00",
+    brandValues: ["Statement mirror", "Pattern-forward", "Oversized scale", "Design-forward"],
+  },
+  {
+    name: "Squiggle Wall Mirror - Watercolor Print",
+    note: "",
+    url: "https://tovfurniture.com/products/charlene-squiggle-wall-mirror?variant=52380750381343",
+    image: "https://tovfurniture.com/cdn/shop/files/TOV-C18950-Main.jpg?v=1776705708&width=1946",
+    gallery: [
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18950-Main.jpg?v=1776705708&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18950-2.jpg?v=1776705708&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18950.jpg?v=1778260165&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18950-3.jpg?v=1776443954&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18950-4.jpg?v=1776443956&width=1946",
+      "https://tovfurniture.com/cdn/shop/files/TOV-C18950-D.jpg?v=1776443954&width=1946",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["39\" x 75\" oversized profile", "Pattern: Watercolor Print", "SKU: TOV-C18950"],
+    description: "A sculptural oversized wall mirror in the Watercolor Print pattern with a softer painterly vibe.",
+    price: "$699.00",
+    brandValues: ["Statement mirror", "Pattern-forward", "Oversized scale", "Design-forward"],
+  },
+  {
+    name: "Botoia Bench Black & White",
+    note: "",
+    imageFit: "contain",
+    url: "https://www.zuomod.com/110183-botoia-bench-black-white",
+    image: "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-1.jpg",
+    gallery: [
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-2.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-3.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-4.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-5.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-6.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-7.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183-8.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183_lifestyle-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110183_dimensions.jpg",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Dimensions: 48.4\" W x 18.1\" D x 16.9\" H", "Textured 100% polyester upholstery", "Plywood, MDF, and painted pine wood construction"],
+    description: "A modern patterned bench with black-and-white textured upholstery and a sculptural, statement-ready profile.",
+    price: "$218.00",
+    brandValues: ["Modern", "Pattern-forward", "Hospitality-friendly", "Statement seating"],
+  },
+  {
+    name: "Runa Accent Chair Beige & Natural",
+    note: "",
+    url: "https://www.zuomod.com/indoor/living/chairs/110468-runa-accent-chair-beige-natural",
+    image: "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-1.jpg",
+    gallery: [
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-2.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-3.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-4.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-5.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-6.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468-7.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468_lifestyle-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468_110544_56177_lifestyle-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110468_dimensions.jpg",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Dimensions: 26.4\" W x 30.3\" D x 31.1\" H", "Printed fabric: 100% polyester", "Plywood and rubberwood frame", "Assembly: No"],
+    description: "A modern accent chair with a soft printed upholstery and natural wood frame for an elevated, layered look.",
+    price: "$415.00",
+    brandValues: ["Modern", "Natural wood", "Textural upholstery", "Accent seating"],
+  },
+  {
+    name: "Arian Coffee Table Silver",
+    note: "",
+    imageFit: "contain",
+    url: "https://www.zuomod.com/indoor/living/coffee-tables/110796-arian-coffee-table-silver",
+    image: "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796-1.jpg",
+    gallery: [
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796-2.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796-3.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796-4.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796-5.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110111_110796_lifestyle-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110111_110796_lifestyle-2.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/111163_110796_110893_lifestyle-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110796_dimensions.jpg",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Dimensions: 31.9\" W x 31.9\" D x 18.1\" H", "Material: Recycled aluminum", "Assembly: Yes", "Country of origin: India"],
+    description: "A sculptural modern coffee table in silver recycled aluminum with a bold, gallery-style profile.",
+    price: "$400.00",
+    brandValues: ["Modern", "Recycled aluminum", "Sculptural", "Statement table"],
+  },
+  {
+    name: "Baia Coffee Table Multicolor",
+    note: "",
+    imageFit: "contain",
+    url: "https://www.zuomod.com/indoor/living/coffee-tables/110602-baia-coffee-table-multicolor",
+    image: "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-1.jpg",
+    gallery: [
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-2.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-3.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-4.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-5.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-6.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-7.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602-8.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602_lifestyle-1.jpg",
+      "https://d3tskdc1t7oml9.cloudfront.net/media/catalog/product/1/1/110602_dimensions.jpg",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Dimensions: 32.7\" W x 32.7\" D x 18.1\" H", "Materials: Terrazzo and forged iron", "Assembly: Yes", "Ships by: LTL"],
+    description: "A bold modern coffee table with a multicolor terrazzo top and forged iron base for sculptural impact.",
+    price: "$308.00",
+    brandValues: ["Modern", "Terrazzo", "Sculptural", "Statement table"],
+  },
+  {
+    name: "Visha Roped Dark Terracotta Decorative Vase",
+    note: "",
+    imageFit: "contain",
+    url: "https://tovfurniture.com/products/visha-roped-dark-terracotta-vase?variant=51464017903903",
+    image: "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-MAIN.jpg?v=1765478830",
+    gallery: [
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-MAIN.jpg?v=1765478830",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025_14a8a2d0-b24a-4a8f-90f2-4cebdb7bc1ca.jpg?v=1779116604",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-2.jpg?v=1768841219",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-3.jpg?v=1768841219",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-4.jpg?v=1768841219",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-5.jpg?v=1768841219",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80025-D.jpg?v=1768841219",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Decorative terracotta vase", "Roped texture detail", "SKU: TOV-C80025"],
+    description: "A dark terracotta decorative vase with a roped texture that adds sculptural depth to shelves and tabletops.",
+    price: "$79.99",
+    brandValues: ["Decor", "Terracotta", "Textural", "Statement accent"],
+  },
+  {
+    name: "Visha Grecian Terracotta Decorative Vase",
+    note: "",
+    imageFit: "contain",
+    url: "https://tovfurniture.com/products/visha-grecian-terracotta-vase?variant=51464017871135",
+    image: "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-MAIN.jpg?v=1765478987",
+    gallery: [
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-MAIN.jpg?v=1765478987",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024_37a519ef-8e22-4db7-818a-46a505f7029f.jpg?v=1779116469",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-2.jpg?v=1768841240",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-3.jpg?v=1768841240",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-4.jpg?v=1768841240",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-5.jpg?v=1768841240",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80024-D.jpg?v=1768841240",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Decorative terracotta vase", "Grecian-inspired silhouette", "SKU: TOV-C80024"],
+    description: "A Grecian-inspired terracotta decorative vase with an elevated sculptural form for consoles and dining tables.",
+    price: "$119.99",
+    brandValues: ["Decor", "Terracotta", "Sculptural", "Statement accent"],
+  },
+  {
+    name: "Visha Grey Green Terracotta Decorative Vase",
+    note: "",
+    imageFit: "contain",
+    url: "https://tovfurniture.com/products/visha-grey-green-terracotta-vase?variant=51464017838367",
+    image: "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023-MAIN.jpg?v=1774454996",
+    gallery: [
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023-MAIN.jpg?v=1774454996",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023_8c4e0e15-c19b-457f-80f9-f0c175fa6a54.jpg?v=1779116553",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023-2.jpg?v=1774454996",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023-3.jpg?v=1774454996",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023-4.jpg?v=1774454996",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80023-D.jpg?v=1774454996",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Decorative terracotta vase", "Grey-green finish", "SKU: TOV-C80023"],
+    description: "A grey-green terracotta decorative vase with earthy tone variation for layered shelf styling.",
+    price: "$119.99",
+    brandValues: ["Decor", "Terracotta", "Earthy tones", "Statement accent"],
+  },
+  {
+    name: "Visha Cream and Blue Terracotta Decorative Vase",
+    note: "",
+    imageFit: "contain",
+    url: "https://tovfurniture.com/products/visha-cream-and-blue-terracotta-vase?variant=51464017805599",
+    image: "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80022-1.jpg?v=1765478488",
+    gallery: [
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80022-1.jpg?v=1765478488",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80022.jpg?v=1768841284",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80022-2.jpg?v=1768841284",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOC-C80022-3.jpg?v=1768841284",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80022-4.jpg?v=1768841284",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80022-D.jpg?v=1768841284",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Decorative terracotta vase", "Cream and blue finish", "SKU: TOV-C80022"],
+    description: "A cream and blue terracotta decorative vase that brings soft contrast and artisan color to a tabletop vignette.",
+    price: "$49.99",
+    brandValues: ["Decor", "Terracotta", "Color contrast", "Statement accent"],
+  },
+  {
+    name: "Visha Scalloped Distressed Cream Terracotta Decorative Vase",
+    note: "",
+    imageFit: "contain",
+    url: "https://tovfurniture.com/products/visha-scalloped-brown-terracotta-vase?variant=51464019443999",
+    image: "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021-MAIN.jpg?v=1765478312",
+    gallery: [
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021-MAIN.jpg?v=1765478312",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021.jpg?v=1768841192",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021-2.jpg?v=1768841192",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021-3.jpg?v=1768841192",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021-4.jpg?v=1768841192",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C80021-D.jpg?v=1768841192",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Decorative terracotta vase", "Scalloped distressed cream finish", "SKU: TOV-C80021"],
+    description: "A scalloped terracotta decorative vase in distressed cream for an organic, collected accent.",
+    price: "$69.99",
+    brandValues: ["Decor", "Terracotta", "Scalloped form", "Statement accent"],
+  },
+  {
+    name: 'Ceramic "Horseplay" Catchall Dish',
+    note: "",
+    imageFit: "contain",
+    url: "https://tovfurniture.com/products/ceramic-horseplay-catchall-dish",
+    image: "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C54686-1.jpg?v=1761319953",
+    gallery: [
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C54686-1.jpg?v=1761319953",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C54686.jpg?v=1761331432",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C54686-2.jpg?v=1761319918",
+      "https://cdn.shopify.com/s/files/1/0711/0924/7263/files/TOV-C54686-D.jpg?v=1761319918",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Ceramic catchall dish", "Playful horse motif", "SKU: TOV-C54686"],
+    description: "A playful ceramic catchall dish that adds character to entry tables, shelves, and bedside styling.",
+    price: "$49.99",
+    brandValues: ["Decor", "Ceramic", "Playful accent", "Giftable"],
+  },
+  {
+    name: "Natural Grass Mirror",
+    note: "",
+    url: "https://tovfurniture.com/pages/professional",
+    image: "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.01.jpg?v=1705656355&width=1946",
+    gallery: [
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.01.jpg?v=1705656355&width=1946",
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.02.jpg?v=1705656355&width=1946",
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.03.jpg?v=1705656355&width=1946",
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.04.jpg?v=1705656355&width=1946",
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.05.jpg?v=1705656355&width=1946",
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.06.jpg?v=1705656355&width=1946",
+      "https://tovfurniture.com/cdn/shop/products/TOV-C21004.media.07.jpg?v=1705656355&width=1946",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Natural grass-wrapped frame", "Oversized 51-inch statement mirror"],
+    description: "Organic texture and warm tone for entryways, bedrooms, and layered wall moments.",
+    price: "$179",
+  },
+  {
+    name: "Harlee Natural Woven Floor Lamp",
+    note: "",
+    url: "https://tovfurniture.com/products/harlee-natural-woven-floor-lamp?variant=48653724909855",
+    image: "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.01.jpg?v=1716366106",
+    gallery: [
+      "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.01.jpg?v=1716366106",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.02.jpg?v=1716366106",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.03.jpg?v=1716366106",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.04.jpg?v=1716366106",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.05.jpg?v=1716366106",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G54343.media.06.jpg?v=1716366106",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Natural woven texture", "Floor lamp silhouette", "Statement lighting for layered spaces"],
+    description: "Warm, woven texture that adds organic depth and soft light to living rooms and bedrooms.",
+    price: "$319.00",
+    brandValues: ["Natural materials", "Statement piece", "Textural", "Design-forward"],
+  },
+  {
+    name: "Geo Semi-Circled Chrome Table Lamp",
+    note: "",
+    url: "https://tovfurniture.com/products/geo-semi-circled-chrome-table-lamp",
+    image: "https://tovfurniture.com/cdn/shop/files/TOV-G18985-MAIN_d86bf24f-2416-46dc-8795-e9554781171a.jpg?v=1767200586",
+    gallery: [
+      "https://tovfurniture.com/cdn/shop/files/TOV-G18985-MAIN_d86bf24f-2416-46dc-8795-e9554781171a.jpg?v=1767200586",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G18985.jpg?v=1771361899",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G18985-2.jpg?v=1771361899",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G18985-3.jpg?v=1771361899",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G18985-4.jpg?v=1771361899",
+      "https://tovfurniture.com/cdn/shop/files/TOV-G18985-MAIN.jpg?v=1771361899",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Chrome finish", "Semi-circled silhouette", "Modern table lamp profile"],
+    description: "Sculptural chrome table lamp with a clean geometric shape for modern bedside or console styling.",
+    price: "$219.00",
+    brandValues: ["Modern", "Statement piece", "Chrome finish", "Design-forward"],
+  },
+  {
+    name: "Cream Performance Fabric and Natural Rattan Accent Chair",
+    note: "",
+    url: "https://tovfurniture.com/products/lauretta-cream-fabric-and-natural-rattan-accent-chair",
+    image: "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.01.jpg?v=1736457538",
+    gallery: [
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.01.jpg?v=1736457538",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.jpg?v=1740168485",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.02.jpg?v=1740168479",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.03.jpg?v=1740168479",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.04.jpg?v=1740168479",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.05.jpg?v=1740168479",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.06.jpg?v=1740168479",
+      "https://tovfurniture.com/cdn/shop/files/TOV-S21028.media.07.jpg?v=1740168479",
+    ],
+    galleryPositions: ["50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%", "50% 50%"],
+    details: ["Cream performance fabric", "Natural rattan accents", "Accent chair silhouette"],
+    description: "A clean, elevated accent chair blending performance fabric comfort with natural rattan texture.",
+    price: "$749.00",
+    brandValues: ["Natural texture", "Performance fabric", "Accent seating", "Design-forward"],
+  },
+  {
+    name: "Hand-Loomed Throw",
+    note: "",
+    url: "#",
+    details: ["Natural wool and cotton blend.", "Available in two tonal colorways."],
+    description: "Dense hand-loomed throw with tactile weave, built for layering across seating and beds.",
+    price: "$210",
+  },
+  {
+    name: "Vintage Boucle Chair",
+    note: "",
+    url: "#",
+    details: ["Sourcing support available.", "Price varies by provenance and condition."],
+    description: "Curated vintage boucle lounge chair with updated upholstery and low sculptural stance.",
+    price: "Quote",
+  },
 ];
+
+const showAvailableToShip = false;
 ---
 
 <Base title="Favves | THROWN" description="Monthly favorites — pieces in the shop and pieces you can order.">
   <StatueBand />
   <section class="px-6 pt-16 pb-12">
     <div class="max-w-7xl mx-auto">
-      <div class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">Favves — May 2026</div>
+      <div class="-mt-1 text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">June 2026</div>
       <h1 class="mt-3 text-5xl md:text-7xl font-black tracking-tight leading-[0.9]">
-        <span class="block">FAVVES</span>
+        <span class="block font-brand-script normal-case">Fa<span class="inline-block tracking-[0.03em]">vv</span>es</span>
         <span class="block mt-2 text-3xl md:text-5xl font-semibold tracking-normal wave-line" aria-label="of amberwavves">
           <span class="wave-prefix" aria-hidden="true">of&nbsp;</span><span class="wave-word" aria-hidden="true"><span style="--i:0">a</span><span style="--i:1">m</span><span style="--i:2">b</span><span style="--i:3">e</span><span style="--i:4">r</span><span style="--i:5">w</span><span style="--i:6">a</span><span style="--i:7">v</span><span style="--i:8">v</span><span style="--i:9">e</span><span style="--i:10">s</span></span>
         </span>
@@ -36,47 +450,348 @@ const order = [
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto">
       <div class="flex items-baseline justify-between border-b border-[color:var(--color-ink)]/15 pb-3 mb-8">
-        <h2 class="text-2xl md:text-3xl font-black tracking-tight">In Store</h2>
+        <h2 class="text-2xl md:text-3xl font-black tracking-[0.04em]">In Store while supplies last</h2>
         <span class="text-xs tracking-widest uppercase text-[color:var(--color-muted)]">1712 Spoke St</span>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
         {inStore.map((p) => (
-          <a href={p.url} class="group block">
-            <div class="aspect-square bg-neutral-200 overflow-hidden">
-              <div class="w-full h-full bg-gradient-to-br from-amber-100 to-stone-300 group-hover:scale-105 transition-transform duration-500"></div>
+          <button
+            type="button"
+            class="group block text-left w-full"
+            data-favve-title={p.name}
+            data-favve-note={p.note}
+            data-favve-details={p.details?.join(" | ") ?? ""}
+            data-favve-description={p.description ?? ""}
+            data-favve-price={p.price ?? ""}
+            data-favve-image={p.image ?? ""}
+            data-favve-gallery={p.gallery?.join(" | ") ?? ""}
+            data-favve-gallery-positions={p.galleryPositions?.join(" | ") ?? ""}
+            data-favve-image-fit={p.imageFit ?? "cover"}
+            data-favve-brand-values={p.brandValues?.join(" | ") ?? ""}
+            data-favve-section="in-store"
+          >
+            <div class="aspect-square bg-white overflow-hidden border border-black/10">
+              {p.image ? (
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  loading="lazy"
+                  class={`w-full h-full ${p.imageFit === "contain" ? "object-contain p-2" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
+                />
+              ) : (
+                <div class="w-full h-full bg-gradient-to-br from-amber-100 to-stone-300 group-hover:scale-105 transition-transform duration-500"></div>
+              )}
             </div>
             <div class="mt-3 flex justify-between text-xs tracking-widest uppercase">
               <span>{p.name}</span>
-              <span class="text-[color:var(--color-muted)]">{p.note}</span>
+              {p.note ? <span class="text-sm md:text-base tracking-normal normal-case text-[color:var(--color-muted)]">{p.note}</span> : null}
             </div>
-          </a>
+          </button>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="px-6 pb-32">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex items-baseline justify-between border-b border-[color:var(--color-ink)]/15 pb-3 mb-8">
-        <h2 class="text-2xl md:text-3xl font-black tracking-tight">Order</h2>
-        <span class="text-xs tracking-widest uppercase text-[color:var(--color-muted)]">Dropship · Trade</span>
+  {showAvailableToShip && (
+    <section class="px-6 pb-32">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-baseline justify-between border-b border-[color:var(--color-ink)]/15 pb-3 mb-8">
+          <h2 class="text-2xl md:text-3xl font-black tracking-[0.05em]">Available to ship</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+          {order.map((p) => (
+            <button
+              type="button"
+              class="group block text-left w-full"
+              data-favve-title={p.name}
+              data-favve-note={p.note}
+              data-favve-details={p.details?.join(" | ") ?? ""}
+              data-favve-description={p.description ?? ""}
+              data-favve-price={p.price ?? ""}
+              data-favve-image={p.image ?? ""}
+              data-favve-gallery={p.gallery?.join(" | ") ?? ""}
+              data-favve-gallery-positions={p.galleryPositions?.join(" | ") ?? ""}
+              data-favve-image-fit={p.imageFit ?? "cover"}
+              data-favve-brand-values={p.brandValues?.join(" | ") ?? ""}
+              data-favve-section="ship"
+            >
+              <div class="aspect-square bg-white overflow-hidden border border-black/10">
+                {p.image ? (
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    loading="lazy"
+                    class={`w-full h-full ${p.imageFit === "contain" ? "object-contain p-2" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
+                  />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-stone-200 to-amber-200 group-hover:scale-105 transition-transform duration-500"></div>
+                )}
+              </div>
+              <div class="mt-3 flex justify-between text-xs tracking-widest uppercase">
+                <span>{p.name}</span>
+                {p.note ? <span class="text-[color:var(--color-cherry)]">{p.note}</span> : null}
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-        {order.map((p) => (
-          <a href={p.url} class="group block">
-            <div class="aspect-square bg-neutral-200 overflow-hidden">
-              <div class="w-full h-full bg-gradient-to-br from-stone-200 to-amber-200 group-hover:scale-105 transition-transform duration-500"></div>
+    </section>
+  )}
+
+  <div id="favve-modal" class="fixed inset-0 z-50 hidden bg-black/70" aria-hidden="true">
+    <div class="h-full w-full overflow-y-auto">
+      <div class="min-h-full bg-[color:var(--color-bg)] px-6 py-8 md:px-10 md:py-10">
+        <div class="mx-auto w-full max-w-7xl">
+          <div class="sticky top-0 z-10 -mx-2 mb-8 flex items-center justify-between border-b border-black/10 bg-[color:var(--color-bg)] px-2 py-3">
+            <div class="text-xs tracking-[0.22em] uppercase text-[color:var(--color-muted)]">Favve Detail</div>
+            <div class="flex items-center gap-2">
+              <button id="favve-modal-prev" type="button" class="text-xs tracking-widest uppercase border border-black/25 px-3 py-2 hover:bg-black/5" aria-label="Previous item">← Prev</button>
+              <button id="favve-modal-next" type="button" class="text-xs tracking-widest uppercase border border-black/25 px-3 py-2 hover:bg-black/5" aria-label="Next item">Next →</button>
+              <button id="favve-modal-close" type="button" class="text-xs tracking-widest uppercase border border-black/25 px-4 py-2 hover:bg-black/5">Close</button>
             </div>
-            <div class="mt-3 flex justify-between text-xs tracking-widest uppercase">
-              <span>{p.name}</span>
-              <span class="text-[color:var(--color-cherry)]">{p.note}</span>
+          </div>
+
+          <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+            <div class="mx-auto w-full max-w-[420px] md:max-w-[460px]">
+              <div class="aspect-[4/5] max-h-[520px] overflow-hidden border border-black/10 bg-white">
+              <img id="favve-modal-image" src="" alt="" class="h-full w-full object-cover" />
+              <div id="favve-modal-image-fallback" class="hidden h-full w-full bg-gradient-to-br from-stone-200 via-amber-100 to-stone-300"></div>
+              </div>
+              <div id="favve-modal-thumbs" class="mt-3 grid grid-cols-3 gap-2"></div>
             </div>
-          </a>
-        ))}
+
+            <div class="max-w-2xl">
+              <div id="favve-modal-note" class="text-xs tracking-widest uppercase text-[color:var(--color-cherry)]">In Store Favve</div>
+              <h3 id="favve-modal-title" class="mt-3 text-4xl md:text-6xl leading-[0.95] font-brand-script normal-case">Item</h3>
+              <div id="favve-modal-price" class="mt-4 text-base md:text-lg font-semibold tracking-wide">Price upon request</div>
+              <div id="favve-modal-placeholder" class="mt-3"></div>
+              <p id="favve-modal-description" class="mt-5 text-base md:text-lg leading-relaxed text-[color:var(--color-ink)]/85"></p>
+
+              <div class="mt-8 border-t border-black/10 pt-6">
+                <div class="font-geliat text-xs tracking-[0.2em] uppercase text-[color:var(--color-muted)]">Details</div>
+                <ul id="favve-modal-list" class="font-geliat mt-4 space-y-3 text-sm md:text-base leading-relaxed"></ul>
+              </div>
+
+              <div id="favve-modal-brand-values-wrap" class="mt-8 border-t border-black/10 pt-6 hidden">
+                <div id="favve-modal-brand-values-title" class="font-geliat text-xs tracking-[0.2em] uppercase text-[color:var(--color-muted)]">Brand Values</div>
+                <ul id="favve-modal-brand-values" class="mt-4 flex flex-wrap gap-2"></ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 </Base>
+
+<script is:inline>
+  const favveModal = document.getElementById('favve-modal');
+  const favveModalTitle = document.getElementById('favve-modal-title');
+  const favveModalNote = document.getElementById('favve-modal-note');
+  const favveModalPrice = document.getElementById('favve-modal-price');
+  const favveModalPlaceholder = document.getElementById('favve-modal-placeholder');
+  const favveModalDescription = document.getElementById('favve-modal-description');
+  const favveModalList = document.getElementById('favve-modal-list');
+  const favveModalBrandValuesWrap = document.getElementById('favve-modal-brand-values-wrap');
+  const favveModalBrandValuesTitle = document.getElementById('favve-modal-brand-values-title');
+  const favveModalBrandValues = document.getElementById('favve-modal-brand-values');
+  const favveModalImage = document.getElementById('favve-modal-image');
+  const favveModalImageFallback = document.getElementById('favve-modal-image-fallback');
+  const favveModalThumbs = document.getElementById('favve-modal-thumbs');
+  const favveModalClose = document.getElementById('favve-modal-close');
+  const favveModalPrev = document.getElementById('favve-modal-prev');
+  const favveModalNext = document.getElementById('favve-modal-next');
+  const favveTriggers = Array.from(document.querySelectorAll('[data-favve-title]'));
+  let currentFavveIndex = -1;
+
+  const closeFavveModal = () => {
+    favveModal?.classList.add('hidden');
+    favveModal?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  const toSlug = (value) =>
+    value
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
+  const openFavveByIndex = (index) => {
+      if (!favveTriggers.length) return;
+      const total = favveTriggers.length;
+      const wrappedIndex = ((index % total) + total) % total;
+      currentFavveIndex = wrappedIndex;
+      const trigger = favveTriggers[wrappedIndex];
+      const title = trigger.getAttribute('data-favve-title') || 'Item';
+      const note = trigger.getAttribute('data-favve-note') || 'In Store Favve';
+      const price = trigger.getAttribute('data-favve-price') || 'Price upon request';
+      const description = trigger.getAttribute('data-favve-description') || 'Contact us for specifications, sizing, and current availability.';
+      const image = trigger.getAttribute('data-favve-image') || '';
+      const gallery = (trigger.getAttribute('data-favve-gallery') || '')
+        .split(' | ')
+        .map((item) => item.trim())
+        .filter(Boolean);
+      const galleryPositions = (trigger.getAttribute('data-favve-gallery-positions') || '')
+        .split(' | ')
+        .map((item) => item.trim())
+        .filter(Boolean);
+      const imageFit = trigger.getAttribute('data-favve-image-fit') || 'cover';
+      const brandValues = (trigger.getAttribute('data-favve-brand-values') || '')
+        .split(' | ')
+        .map((item) => item.trim())
+        .filter(Boolean);
+      const section = trigger.getAttribute('data-favve-section') || 'in-store';
+      const details = (trigger.getAttribute('data-favve-details') || '')
+        .split(' | ')
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+      if (favveModalTitle) favveModalTitle.textContent = title;
+      if (favveModalNote) favveModalNote.textContent = note;
+      if (favveModalPrice) favveModalPrice.textContent = price;
+      if (favveModalPlaceholder) {
+        favveModalPlaceholder.innerHTML = '';
+        const slot = document.createElement('div');
+        slot.id = `${toSlug(title)}-btn`;
+        favveModalPlaceholder.appendChild(slot);
+      }
+      if (favveModalDescription) {
+        favveModalDescription.textContent = description;
+        const shouldUseNewDescriptionFont =
+          title.toLowerCase().includes('blomb') ||
+          title.toLowerCase().includes('citrus + co garnish blends');
+        if (shouldUseNewDescriptionFont) {
+          favveModalDescription.classList.add('font-geliat');
+        } else {
+          favveModalDescription.classList.remove('font-geliat');
+        }
+      }
+      if (favveModalList) {
+        favveModalList.innerHTML = '';
+        const items = details.length
+          ? details
+          : ['Message us for sourcing options and current lead times.'];
+        items.forEach((item) => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          favveModalList.appendChild(li);
+        });
+      }
+
+      if (favveModalBrandValuesWrap && favveModalBrandValues) {
+        favveModalBrandValues.innerHTML = '';
+        if (brandValues.length) {
+          if (favveModalBrandValuesTitle) {
+            if (section === 'ship') {
+              favveModalBrandValuesTitle.classList.add('hidden');
+            } else {
+              favveModalBrandValuesTitle.classList.remove('hidden');
+            }
+          }
+          brandValues.forEach((value) => {
+            const li = document.createElement('li');
+            li.className = 'border border-black/15 px-3 py-1 text-xs tracking-wide uppercase';
+            li.textContent = value;
+            favveModalBrandValues.appendChild(li);
+          });
+          favveModalBrandValuesWrap.classList.remove('hidden');
+        } else {
+          if (favveModalBrandValuesTitle) favveModalBrandValuesTitle.classList.remove('hidden');
+          favveModalBrandValuesWrap.classList.add('hidden');
+        }
+      }
+
+      if (favveModalImage instanceof HTMLImageElement && favveModalImageFallback) {
+        const initialImage = gallery[0] || image;
+        if (initialImage) {
+          favveModalImage.src = initialImage;
+          favveModalImage.alt = title;
+          favveModalImage.style.objectPosition = galleryPositions[0] || '50% 50%';
+          favveModalImage.classList.remove('object-cover', 'object-contain', 'p-2');
+          if (imageFit === 'contain') {
+            favveModalImage.classList.add('object-contain', 'p-2');
+          } else {
+            favveModalImage.classList.add('object-cover');
+          }
+          favveModalImage.classList.remove('hidden');
+          favveModalImageFallback.classList.add('hidden');
+        } else {
+          favveModalImage.removeAttribute('src');
+          favveModalImage.alt = '';
+          favveModalImage.classList.add('hidden');
+          favveModalImageFallback.classList.remove('hidden');
+        }
+      }
+
+      if (favveModalThumbs) {
+        favveModalThumbs.innerHTML = '';
+        gallery.forEach((src, idx) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'overflow-hidden border border-black/20 bg-white hover:border-black';
+          button.setAttribute('aria-label', `View photo ${idx + 1}`);
+
+          const thumb = document.createElement('img');
+          thumb.src = src;
+          thumb.alt = `${title} photo ${idx + 1}`;
+          thumb.className = 'h-20 w-full object-cover';
+          thumb.loading = 'lazy';
+
+          button.appendChild(thumb);
+          button.addEventListener('click', () => {
+            if (favveModalImage instanceof HTMLImageElement && favveModalImageFallback) {
+              favveModalImage.src = src;
+              favveModalImage.alt = title;
+              favveModalImage.style.objectPosition = galleryPositions[idx] || '50% 50%';
+              favveModalImage.classList.remove('hidden');
+              favveModalImageFallback.classList.add('hidden');
+            }
+          });
+          favveModalThumbs.appendChild(button);
+        });
+      }
+
+      favveModal?.classList.remove('hidden');
+      favveModal?.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+  };
+
+  favveTriggers.forEach((trigger, idx) => {
+    trigger.addEventListener('click', () => {
+      openFavveByIndex(idx);
+    });
+  });
+
+  favveModalClose?.addEventListener('click', closeFavveModal);
+  favveModalPrev?.addEventListener('click', () => {
+    if (currentFavveIndex >= 0) openFavveByIndex(currentFavveIndex - 1);
+  });
+  favveModalNext?.addEventListener('click', () => {
+    if (currentFavveIndex >= 0) openFavveByIndex(currentFavveIndex + 1);
+  });
+
+  favveModal?.addEventListener('click', (event) => {
+    if (event.target === favveModal) {
+      closeFavveModal();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeFavveModal();
+      return;
+    }
+    if (favveModal?.classList.contains('hidden')) return;
+    if (event.key === 'ArrowLeft' && currentFavveIndex >= 0) {
+      openFavveByIndex(currentFavveIndex - 1);
+    }
+    if (event.key === 'ArrowRight' && currentFavveIndex >= 0) {
+      openFavveByIndex(currentFavveIndex + 1);
+    }
+  });
+
+</script>
 
 <style is:global>
   .wave-line {
