@@ -3,6 +3,8 @@ import Base from "../layouts/Base.astro";
 import StatueBand from "../components/StatueBand.astro";
 import { getGallery } from "../lib/gallery";
 
+export const prerender = true;
+
 const images = getGallery("residential").visible;
 ---
 

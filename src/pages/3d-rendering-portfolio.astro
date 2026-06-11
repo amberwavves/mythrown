@@ -2,6 +2,8 @@
 import Base from "../layouts/Base.astro";
 import { getGallery } from "../lib/gallery";
 
+export const prerender = true;
+
 const gallery = getGallery("renderings");
 const renderings = gallery.visible;
 const otherImages = gallery.hidden;
