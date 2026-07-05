@@ -84,6 +84,15 @@ import Base from "../layouts/Base.astro";
       return Number.isFinite(numeric) ? numeric : 0;
     };
 
+    const escapeHtml = (value) =>
+      String(value).replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[ch]);
+
     const formatUsd = (amount) =>
       new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -118,10 +127,10 @@ import Base from "../layouts/Base.astro";
         .map(
           (item, index) => `
           <article class="grid grid-cols-[72px_1fr_auto] gap-4 items-center px-4 py-4 md:px-6">
-            <img src="${item.image || "/images/about/_thumbs"}" alt="${item.title}" class="w-[72px] h-[72px] object-cover border border-black/10 bg-[#f2efe8]" loading="lazy" />
+            <img src="${escapeHtml(item.image || "/images/about/_thumbs")}" alt="${escapeHtml(item.title)}" class="w-[72px] h-[72px] object-cover border border-black/10 bg-[#f2efe8]" loading="lazy" />
             <div>
-              <h3 class="font-geliat text-base md:text-lg leading-tight">${item.title}</h3>
-              <p class="mt-1 text-sm text-black/70">${item.price} each</p>
+              <h3 class="font-geliat text-base md:text-lg leading-tight">${escapeHtml(item.title)}</h3>
+              <p class="mt-1 text-sm text-black/70">${escapeHtml(item.price)} each</p>
             </div>
             <div class="flex flex-col items-end gap-2">
               <div class="inline-flex items-center border border-black/20">

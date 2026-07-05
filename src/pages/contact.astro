@@ -1,6 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
 import StatueBand from "../components/StatueBand.astro";
+
+const error = Astro.url.searchParams.get("error");
+const errorMessage =
+  error === "invalid"
+    ? "Please fill out your name, a valid email, and a note about the project."
+    : error === "send"
+      ? "Something went wrong sending your inquiry. Please try again, or email amber@mythrown.com directly."
+      : null;
 ---
 
 <Base title="Contact | THROWN">
@@ -13,12 +21,16 @@ import StatueBand from "../components/StatueBand.astro";
         Thank you for considering THROWN for your upcoming project. Please complete this inquiry so we can thoughtfully scope your design needs.
       </p>
 
+      {errorMessage && (
+        <p class="mt-6 border border-[color:var(--color-cherry)]/40 bg-[color:var(--color-cherry)]/10 px-4 py-3 text-sm text-[color:var(--color-cherry)]">
+          {errorMessage}
+        </p>
+      )}
+
       <form
         name="contact"
         method="POST"
-        action="/contact-thank-you"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
+        action="/api/contact"
         class="mt-10 grid gap-5 md:gap-6"
       >
         <input type="hidden" name="form-name" value="contact" />

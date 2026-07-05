@@ -3,7 +3,16 @@ import { loadThrownSettings, saveThrownSettings, type ThrownSettings } from "../
 
 export const prerender = false;
 
+// Admin-only, dev-only endpoint: writes to the local filesystem, which is
+// read-only on Vercel. Return 404 in production so it is not exposed publicly.
+const notFound = () =>
+  new Response(JSON.stringify({ error: "not found" }), {
+    status: 404,
+    headers: { "content-type": "application/json" },
+  });
+
 export const GET: APIRoute = () => {
+  if (import.meta.env.PROD) return notFound();
   const settings = loadThrownSettings();
   return new Response(JSON.stringify(settings), {
     headers: { "content-type": "application/json" },
@@ -21,6 +30,7 @@ function isThrownSettings(value: unknown): value is ThrownSettings {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  if (import.meta.env.PROD) return notFound();
   const payload = await request.json().catch(() => null);
   if (!isThrownSettings(payload)) {
     return new Response(JSON.stringify({ error: "invalid settings payload" }), {
