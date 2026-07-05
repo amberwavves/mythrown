@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import StatueBand from "../components/StatueBand.astro";
-import { getGallery } from "../lib/gallery";
+import { getGallery, variantUrl } from "../lib/gallery";
 
 export const prerender = true;
 
@@ -23,9 +23,9 @@ const images = getGallery("residential").visible;
   <section class="px-6 pb-32">
     <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {images.map((src) => (
-        <a href={src} target="_blank" rel="noopener" class="group block aspect-square overflow-hidden bg-neutral-100">
+        <a href={variantUrl(src, "_full")} target="_blank" rel="noopener" class="group block aspect-square overflow-hidden bg-neutral-100">
           <img
-            src={src}
+            src={variantUrl(src, "_web")}
             alt=""
             loading="lazy"
             decoding="async"
