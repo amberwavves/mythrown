@@ -1,6 +1,12 @@
 ---
 import Base from "../../layouts/Base.astro";
 
+// Dev-only admin tool: it writes to the local filesystem (read-only on Vercel).
+// Hide it entirely in production.
+if (import.meta.env.PROD) {
+  return new Response("Not found", { status: 404 });
+}
+
 const CATEGORIES = ["commercial", "residential", "shop", "about", "renderings"];
 ---
 
