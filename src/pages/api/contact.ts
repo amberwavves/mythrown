@@ -1,12 +1,22 @@
 import type { APIRoute } from "astro";
+import nodemailer from "nodemailer";
 
 export const prerender = false;
 
 const CONTACT_TO = import.meta.env.CONTACT_TO || "amber@mythrown.com";
-// Until mythrown.com is verified in Resend, use their onboarding sender.
-const CONTACT_FROM = import.meta.env.CONTACT_FROM || "THROWN Website <onboarding@resend.dev>";
 const MAX_FIELD = 200;
 const MAX_MESSAGE = 5000;
+
+// Provider selection:
+// - If GMAIL_USER + GMAIL_APP_PASSWORD are set, send via Gmail SMTP (no DNS/domain
+//   verification needed; mail comes from the real mailbox).
+// - Otherwise, if RESEND_API_KEY is set, send via Resend.
+const GMAIL_USER = import.meta.env.GMAIL_USER;
+const GMAIL_APP_PASSWORD = import.meta.env.GMAIL_APP_PASSWORD;
+const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
+// From address used by Resend (Gmail always sends from GMAIL_USER).
+// Until mythrown.com is verified in Resend, their onboarding sender is used.
+const RESEND_FROM = import.meta.env.CONTACT_FROM || "THROWN Website <onboarding@resend.dev>";
 
 function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, (ch) =>
@@ -44,12 +54,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     return redirect("/contact?error=invalid", 303);
   }
 
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error("RESEND_API_KEY is not set; contact form email not sent.");
-    return redirect("/contact?error=send", 303);
-  }
-
   const rows: [string, string][] = [
     ["Name", name],
     ["Email", email],
@@ -71,23 +75,50 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
   `;
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: CONTACT_FROM,
-      to: [CONTACT_TO],
-      reply_to: email,
-      subject: `THROWN inquiry: ${name}${projectType ? ` — ${projectType}` : ""}`,
-      html,
-    }),
-  });
+  const subject = `THROWN inquiry: ${name}${projectType ? ` — ${projectType}` : ""}`;
 
-  if (!res.ok) {
-    console.error("Resend API error:", res.status, await res.text().catch(() => ""));
+  try {
+    if (GMAIL_USER && GMAIL_APP_PASSWORD) {
+      // --- Gmail SMTP (Google Workspace) ---
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
+      });
+      await transporter.sendMail({
+        from: `THROWN Website <${GMAIL_USER}>`,
+        to: CONTACT_TO,
+        replyTo: email,
+        subject,
+        html,
+      });
+    } else if (RESEND_API_KEY) {
+      // --- Resend ---
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: RESEND_FROM,
+          to: [CONTACT_TO],
+          reply_to: email,
+          subject,
+          html,
+        }),
+      });
+      if (!res.ok) {
+        console.error("Resend API error:", res.status, await res.text().catch(() => ""));
+        return redirect("/contact?error=send", 303);
+      }
+    } else {
+      console.error("No email provider configured (set GMAIL_USER+GMAIL_APP_PASSWORD or RESEND_API_KEY).");
+      return redirect("/contact?error=send", 303);
+    }
+  } catch (err) {
+    console.error("Contact email failed to send:", err);
     return redirect("/contact?error=send", 303);
   }
 
