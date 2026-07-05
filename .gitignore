@@ -6,3 +6,6 @@ dist
 .DS_Store
 .vercel
 public/videos/compressed.zip
+
+# Local scratch / working files (not part of the site)
+proposals/
