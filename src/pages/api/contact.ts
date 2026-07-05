@@ -18,6 +18,27 @@ const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
 // Until mythrown.com is verified in Resend, their onboarding sender is used.
 const RESEND_FROM = import.meta.env.CONTACT_FROM || "THROWN Website <onboarding@resend.dev>";
 
+// Protocol-agnostic CSRF origin check. We disable Astro's built-in checkOrigin
+// (it false-positives on Vercel, where the internal request is http:// but the
+// browser Origin is https://) and instead compare only the Origin *host* to an
+// allowlist. Requests with no Origin header (e.g. some server-to-server clients)
+// are allowed through; bot spam is caught by the honeypot below.
+const ALLOWED_HOSTS = new Set(
+  (import.meta.env.ALLOWED_ORIGIN_HOSTS || "mythrown.com,www.mythrown.com,mythrown.vercel.app,localhost")
+    .split(",")
+    .map((h: string) => h.trim().toLowerCase())
+    .filter(Boolean),
+);
+
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return true;
+  try {
+    return ALLOWED_HOSTS.has(new URL(origin).hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
 function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, (ch) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch] as string,
@@ -30,6 +51,11 @@ function field(data: FormData, name: string, max = MAX_FIELD): string {
 }
 
 export const POST: APIRoute = async ({ request, redirect }) => {
+  // Block genuine cross-site form posts (protocol-agnostic, Vercel-safe).
+  if (!isAllowedOrigin(request.headers.get("origin"))) {
+    return new Response("Cross-site POST form submissions are forbidden", { status: 403 });
+  }
+
   let data: FormData;
   try {
     data = await request.formData();
