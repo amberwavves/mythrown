@@ -1,9 +1,10 @@
 // Generates web-optimized WebP variants for all images under public/images/<category>/
 // Output:
-//   public/images/<category>/_web/<basename>.webp   (max 1200px wide — gallery grids)
-//   public/images/<category>/_full/<basename>.webp  (max 2000px wide — lightbox / click-through)
+//   public/images/<category>/_sm/<basename>.webp    (max 800px — phones)
+//   public/images/<category>/_web/<basename>.webp   (max 1600px — desktop grids / retina)
+//   public/images/<category>/_full/<basename>.webp  (max 2400px — lightbox / click-through)
 //
-// Run after adding new images: node scripts/generate_web_images.mjs
+// Run after adding new images: npm run optimize:images
 // Pages fall back to the original file if a variant is missing, so this is safe
 // to run incrementally (already up-to-date variants are skipped).
 import fs from "node:fs";
@@ -16,8 +17,9 @@ const CATS = [".", "commercial", "residential", "shop", "about", "renderings"];
 const IMG_RE = /\.(jpe?g|png|webp)$/i;
 
 const VARIANTS = [
-  { dir: "_web", width: 1200, quality: 78 },
-  { dir: "_full", width: 2000, quality: 82 },
+  { dir: "_sm", width: 800, quality: 80 },
+  { dir: "_web", width: 1600, quality: 85 },
+  { dir: "_full", width: 2400, quality: 87 },
 ];
 
 let totalMade = 0;

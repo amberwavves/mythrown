@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import StatueBand from "../components/StatueBand.astro";
-import { getGallery, variantUrl } from "../lib/gallery";
+import { getGallery, variantUrl, variantSrcset } from "../lib/gallery";
 
 export const prerender = true;
 
@@ -26,6 +26,8 @@ const images = getGallery("commercial").visible;
         <a href={variantUrl(src, "_full")} target="_blank" rel="noopener" class="group block aspect-square overflow-hidden bg-neutral-100">
           <img
             src={variantUrl(src, "_web")}
+            srcset={variantSrcset(src)}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             alt=""
             loading="lazy"
             decoding="async"
