@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { getGallery } from "../lib/gallery";
+import { getGallery, variantUrl } from "../lib/gallery";
 
 export const prerender = true;
 
@@ -36,10 +36,12 @@ const filename = (src: string) => src.replace('/images/renderings/', '');
           return (
             <div class="group relative overflow-hidden rounded-3xl aspect-[4/3]">
               <img
-                src={src}
+                src={variantUrl(src, "_web")}
                 alt="3D rendering portfolio"
                 loading="lazy"
+                decoding="async"
                 data-index={index}
+                data-full={variantUrl(src, "_full")}
                 class="lightbox-trigger absolute object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 style={style}
               />
@@ -65,10 +67,12 @@ const filename = (src: string) => src.replace('/images/renderings/', '');
             return (
               <div class="group relative overflow-hidden rounded-3xl aspect-[4/3]">
                 <img
-                  src={src}
+                  src={variantUrl(src, "_web")}
                   alt="Additional project image"
                   loading="lazy"
+                  decoding="async"
                   data-index={index}
+                  data-full={variantUrl(src, "_full")}
                   class="lightbox-trigger absolute object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   style={style}
                 />
@@ -92,7 +96,7 @@ const filename = (src: string) => src.replace('/images/renderings/', '');
   const lightbox = document.querySelector('#lightbox');
   const lightboxImage = document.querySelector('#lightbox-image');
   const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
-  const images = triggers.map((img) => img.getAttribute('src'));
+  const images = triggers.map((img) => img.dataset.full || img.getAttribute('src'));
   let currentIndex = 0;
 
   function openLightbox(index) {
