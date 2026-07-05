@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "optimize:images": "node scripts/generate_web_images.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^8.2.11",
