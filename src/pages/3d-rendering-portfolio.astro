@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { getGallery, variantUrl } from "../lib/gallery";
+import { getGallery, variantUrl, variantSrcset } from "../lib/gallery";
 
 export const prerender = true;
 
@@ -37,6 +37,8 @@ const filename = (src: string) => src.replace('/images/renderings/', '');
             <div class="group relative overflow-hidden rounded-3xl aspect-[4/3]">
               <img
                 src={variantUrl(src, "_web")}
+                srcset={variantSrcset(src)}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="3D rendering portfolio"
                 loading="lazy"
                 decoding="async"
@@ -68,6 +70,8 @@ const filename = (src: string) => src.replace('/images/renderings/', '');
               <div class="group relative overflow-hidden rounded-3xl aspect-[4/3]">
                 <img
                   src={variantUrl(src, "_web")}
+                  srcset={variantSrcset(src)}
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   alt="Additional project image"
                   loading="lazy"
                   decoding="async"
