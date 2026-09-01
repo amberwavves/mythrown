@@ -4,6 +4,9 @@ import nodemailer from "nodemailer";
 export const prerender = false;
 
 const CONTACT_TO = import.meta.env.CONTACT_TO || "amber@mythrown.com";
+const CONTACT_BCC = import.meta.env.CONTACT_BCC || "";
+const BACKUP_WEBHOOK_URL = import.meta.env.INQUIRY_BACKUP_WEBHOOK_URL || "";
+const EMAIL_PROVIDER_PREFERENCE = (import.meta.env.EMAIL_PROVIDER_PREFERENCE || "gmail").toLowerCase();
 const MAX_FIELD = 200;
 const MAX_MESSAGE = 5000;
 
@@ -50,9 +53,86 @@ function field(data: FormData, name: string, max = MAX_FIELD): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
+function toList(value: string): string[] {
+  return value
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+const CONTACT_TO_LIST = toList(CONTACT_TO);
+const CONTACT_BCC_LIST = toList(CONTACT_BCC);
+
+async function mirrorInquiryToWebhook(payload: Record<string, unknown>): Promise<void> {
+  if (!BACKUP_WEBHOOK_URL) return;
+
+  const res = await fetch(BACKUP_WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Backup webhook responded with ${res.status}`);
+  }
+}
+
+async function sendViaGmail(subject: string, html: string, replyTo: string): Promise<void> {
+  if (!GMAIL_USER || !GMAIL_APP_PASSWORD) {
+    throw new Error("Gmail credentials not configured");
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
+  });
+
+  await transporter.sendMail({
+    from: `THROWN Website <${GMAIL_USER}>`,
+    to: CONTACT_TO_LIST,
+    bcc: CONTACT_BCC_LIST.length ? CONTACT_BCC_LIST : undefined,
+    replyTo,
+    subject,
+    html,
+  });
+}
+
+async function sendViaResend(subject: string, html: string, replyTo: string): Promise<void> {
+  if (!RESEND_API_KEY) {
+    throw new Error("Resend API key not configured");
+  }
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: RESEND_FROM,
+      to: CONTACT_TO_LIST,
+      bcc: CONTACT_BCC_LIST.length ? CONTACT_BCC_LIST : undefined,
+      reply_to: replyTo,
+      subject,
+      html,
+    }),
+  });
+
+  if (!res.ok) {
+    const details = await res.text().catch(() => "");
+    throw new Error(`Resend API error ${res.status}: ${details}`);
+  }
+}
+
 export const POST: APIRoute = async ({ request, redirect }) => {
+  const inquiryId = crypto.randomUUID();
+  const origin = request.headers.get("origin");
+
   // Block genuine cross-site form posts (protocol-agnostic, Vercel-safe).
-  if (!isAllowedOrigin(request.headers.get("origin"))) {
+  if (!isAllowedOrigin(origin)) {
+    console.warn(`[contact:${inquiryId}] blocked disallowed origin`, { origin });
     return new Response("Cross-site POST form submissions are forbidden", { status: 403 });
   }
 
@@ -60,11 +140,13 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   try {
     data = await request.formData();
   } catch {
+    console.warn(`[contact:${inquiryId}] invalid form data payload`);
     return new Response("Bad request", { status: 400 });
   }
 
   // Honeypot: bots fill this hidden field. Pretend success and discard.
   if (field(data, "bot-field")) {
+    console.info(`[contact:${inquiryId}] honeypot triggered; discarded`);
     return redirect("/contact-thank-you", 303);
   }
 
@@ -77,8 +159,19 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const message = field(data, "message", MAX_MESSAGE);
 
   if (!name || !email || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    console.warn(`[contact:${inquiryId}] validation failed`, {
+      hasName: Boolean(name),
+      hasEmail: Boolean(email),
+      hasMessage: Boolean(message),
+    });
     return redirect("/contact?error=invalid", 303);
   }
+
+  console.info(`[contact:${inquiryId}] accepted`, {
+    email,
+    projectType: projectType || null,
+    origin,
+  });
 
   const rows: [string, string][] = [
     ["Name", name],
@@ -103,48 +196,85 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   const subject = `THROWN inquiry: ${name}${projectType ? ` — ${projectType}` : ""}`;
 
+  const mirrorPayload = {
+    inquiryId,
+    receivedAt: new Date().toISOString(),
+    name,
+    email,
+    projectType,
+    investment,
+    timeline,
+    referral,
+    message,
+    origin,
+  };
+
   try {
-    if (GMAIL_USER && GMAIL_APP_PASSWORD) {
-      // --- Gmail SMTP (Google Workspace) ---
-      const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
-      });
-      await transporter.sendMail({
-        from: `THROWN Website <${GMAIL_USER}>`,
-        to: CONTACT_TO,
-        replyTo: email,
-        subject,
-        html,
-      });
-    } else if (RESEND_API_KEY) {
-      // --- Resend ---
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: RESEND_FROM,
-          to: [CONTACT_TO],
-          reply_to: email,
-          subject,
-          html,
-        }),
-      });
-      if (!res.ok) {
-        console.error("Resend API error:", res.status, await res.text().catch(() => ""));
-        return redirect("/contact?error=send", 303);
-      }
-    } else {
-      console.error("No email provider configured (set GMAIL_USER+GMAIL_APP_PASSWORD or RESEND_API_KEY).");
-      return redirect("/contact?error=send", 303);
+    await mirrorInquiryToWebhook(mirrorPayload);
+    if (BACKUP_WEBHOOK_URL) {
+      console.info(`[contact:${inquiryId}] mirrored to backup webhook`);
     }
   } catch (err) {
-    console.error("Contact email failed to send:", err);
+    console.error(`[contact:${inquiryId}] backup webhook mirror failed:`, err);
+  }
+
+  try {
+    if (!CONTACT_TO_LIST.length) {
+      console.error(`[contact:${inquiryId}] CONTACT_TO has no valid recipients`);
+      return redirect("/contact?error=send", 303);
+    }
+
+    const hasGmail = Boolean(GMAIL_USER && GMAIL_APP_PASSWORD);
+    const hasResend = Boolean(RESEND_API_KEY);
+
+    if (!hasGmail && !hasResend) {
+      console.error(
+        `[contact:${inquiryId}] no email provider configured (set GMAIL_USER+GMAIL_APP_PASSWORD or RESEND_API_KEY).`,
+      );
+      return redirect("/contact?error=send", 303);
+    }
+
+    const tryGmailFirst = EMAIL_PROVIDER_PREFERENCE !== "resend";
+    const attempts: Array<{ provider: "gmail" | "resend"; ok: boolean; error?: string }> = [];
+
+    const runAttempt = async (provider: "gmail" | "resend") => {
+      try {
+        if (provider === "gmail") {
+          await sendViaGmail(subject, html, email);
+        } else {
+          await sendViaResend(subject, html, email);
+        }
+        attempts.push({ provider, ok: true });
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        attempts.push({ provider, ok: false, error: message });
+      }
+    };
+
+    const order: Array<"gmail" | "resend"> = tryGmailFirst ? ["gmail", "resend"] : ["resend", "gmail"];
+
+    for (const provider of order) {
+      if (provider === "gmail" && !hasGmail) continue;
+      if (provider === "resend" && !hasResend) continue;
+      await runAttempt(provider);
+      const latest = attempts[attempts.length - 1];
+      if (latest?.ok) break;
+    }
+
+    const success = attempts.find((a) => a.ok);
+    if (!success) {
+      console.error(`[contact:${inquiryId}] all providers failed`, attempts);
+      return redirect("/contact?error=send", 303);
+    }
+
+    console.info(`[contact:${inquiryId}] sent`, {
+      provider: success.provider,
+      attempted: attempts,
+      to: CONTACT_TO_LIST,
+      bcc: CONTACT_BCC_LIST.length ? CONTACT_BCC_LIST : null,
+    });
+  } catch (err) {
+    console.error(`[contact:${inquiryId}] contact email failed to send:`, err);
     return redirect("/contact?error=send", 303);
   }
 
