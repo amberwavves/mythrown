@@ -66,13 +66,20 @@ const CONTACT_BCC_LIST = toList(CONTACT_BCC);
 async function mirrorInquiryToWebhook(payload: Record<string, unknown>): Promise<void> {
   if (!BACKUP_WEBHOOK_URL) return;
 
+  // Google Apps Script web apps answer a successful POST with a 302 to
+  // script.googleusercontent.com. The handler has already run by that point.
+  // Following the redirect would downgrade POST to GET and hit a doGet that
+  // does not exist, so a real success would look like a failure. Stop at the
+  // redirect and treat 3xx as delivered.
   const res = await fetch(BACKUP_WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
+    redirect: "manual",
   });
 
-  if (!res.ok) {
+  const delivered = res.ok || (res.status >= 300 && res.status < 400);
+  if (!delivered) {
     throw new Error(`Backup webhook responded with ${res.status}`);
   }
 }

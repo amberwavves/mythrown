@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "check:contact-form": "node scripts/check_contact_form.mjs",
+    "build": "npm run check:contact-form && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "optimize:images": "node scripts/generate_web_images.mjs"
