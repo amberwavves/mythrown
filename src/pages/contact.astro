@@ -6,9 +6,11 @@ const error = Astro.url.searchParams.get("error");
 const errorMessage =
   error === "invalid"
     ? "Please fill out your name, a valid email, and a note about the project."
-    : error === "send"
-      ? "Something went wrong sending your inquiry. Please try again, or email amber@mythrown.com directly."
-      : null;
+    : error === "rate"
+      ? "You've sent several inquiries in a short time. Please wait a few minutes and try again, or email amber@mythrown.com directly."
+      : error === "send"
+        ? "Something went wrong sending your inquiry. Please try again, or email amber@mythrown.com directly."
+        : null;
 ---
 
 <Base title="Contact | THROWN">

@@ -10,6 +10,14 @@ const EMAIL_PROVIDER_PREFERENCE = (import.meta.env.EMAIL_PROVIDER_PREFERENCE || 
 const MAX_FIELD = 200;
 const MAX_MESSAGE = 5000;
 
+// Rate limiting. Generous on purpose: a real person will never trip 5 sends in
+// 10 minutes, but a bot hammering this endpoint would burn the Gmail daily send
+// quota, after which genuine inquiries stop going out silently — the exact
+// failure mode this whole pipeline exists to prevent.
+const RATE_LIMIT_MAX = Number(import.meta.env.CONTACT_RATE_LIMIT_MAX || 5);
+const RATE_LIMIT_WINDOW_MS = Number(import.meta.env.CONTACT_RATE_LIMIT_WINDOW_MS || 10 * 60 * 1000);
+const RATE_LIMIT_MAX_TRACKED_IPS = 5000;
+
 // Provider selection:
 // - If GMAIL_USER + GMAIL_APP_PASSWORD are set, send via Gmail SMTP (no DNS/domain
 //   verification needed; mail comes from the real mailbox).
@@ -62,6 +70,43 @@ function toList(value: string): string[] {
 
 const CONTACT_TO_LIST = toList(CONTACT_TO);
 const CONTACT_BCC_LIST = toList(CONTACT_BCC);
+
+// Serverless instances are ephemeral and independent, so this window is
+// per-instance and resets on cold start. That trade is deliberate: it costs
+// nothing, adds no dependency, and stops the realistic attack (a single client
+// hammering the form). Surviving a distributed flood would require shared state
+// such as Vercel KV or Upstash Redis.
+const submissionLog = new Map<string, number[]>();
+
+function clientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for") || "";
+  const first = forwarded.split(",")[0]?.trim();
+  return first || (request.headers.get("x-real-ip") || "").trim();
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+
+  // Bound memory so a flood of unique IPs cannot grow the map without limit.
+  if (submissionLog.size > RATE_LIMIT_MAX_TRACKED_IPS) {
+    for (const [key, times] of submissionLog) {
+      const fresh = times.filter((t) => t > cutoff);
+      if (fresh.length) submissionLog.set(key, fresh);
+      else submissionLog.delete(key);
+    }
+  }
+
+  const hits = (submissionLog.get(ip) || []).filter((t) => t > cutoff);
+  if (hits.length >= RATE_LIMIT_MAX) {
+    submissionLog.set(ip, hits);
+    return true;
+  }
+
+  hits.push(now);
+  submissionLog.set(ip, hits);
+  return false;
+}
 
 async function mirrorInquiryToWebhook(payload: Record<string, unknown>): Promise<void> {
   if (!BACKUP_WEBHOOK_URL) return;
@@ -141,6 +186,15 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   if (!isAllowedOrigin(origin)) {
     console.warn(`[contact:${inquiryId}] blocked disallowed origin`, { origin });
     return new Response("Cross-site POST form submissions are forbidden", { status: 403 });
+  }
+
+  // Checked before the body is parsed so abusive traffic costs as little as
+  // possible. An unrecognised IP fails OPEN: silently dropping a real inquiry is
+  // a worse outcome than letting an extra one through.
+  const ip = clientIp(request);
+  if (ip && isRateLimited(ip)) {
+    console.warn(`[contact:${inquiryId}] rate limited`, { ip });
+    return redirect("/contact?error=rate", 303);
   }
 
   let data: FormData;
