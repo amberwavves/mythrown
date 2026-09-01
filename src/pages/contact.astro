@@ -31,12 +31,9 @@ const errorMessage =
         name="contact"
         method="POST"
         action="/api/contact"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
         class="mt-10 grid gap-5 md:gap-6"
       >
-        <input type="hidden" name="form-name" value="contact" />
-        <!-- Hidden Honeypot Field -->
+        <!-- Honeypot: bots fill this, /api/contact discards those submissions. -->
         <p class="hidden-field" style="display: none;"><label>Don’t fill this out if you're human: <input name="bot-field" /></label></p>
 
         <label class="grid gap-2">
